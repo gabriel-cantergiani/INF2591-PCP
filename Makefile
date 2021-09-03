@@ -1,6 +1,6 @@
 
 compile:
-	gcc -Wno-deprecated-declarations -o main main.c buffer.c producer_consumer.c
+	gcc -pthread -o main main.c buffer.c producer_consumer.c
 
 run1:
 	./main 5 1 1 3

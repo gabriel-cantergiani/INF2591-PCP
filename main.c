@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 
 #include "buffer.h"
 #include "producer_consumer.h"
@@ -33,27 +34,29 @@ int main(int argc, char * argv[]) {
 
     // Create consumer threads
     for (int i = 0; i < C; i++) {
-        pthread_t p;
-        consumer_threads[i] = p;
 
         int thread_id = i + 1;
         consumerArgs args = { thread_id, buffer };
         consumer_threads_args[i] = args;
 
+        pthread_t p;
         pthread_create(&p, NULL, createConsumer, &consumer_threads_args[i]);
+        consumer_threads[i] = p;
+
         printf("Thread %d created\n", thread_id);
     }
 
     // Create producer threads
     for (int i = 0; i < P; i++) {
-        pthread_t p;
-        producer_threads[i] = p;
 
         int thread_id = C + i + 1;
         producerArgs args = { thread_id, items, buffer };
         producer_threads_args[i] = args;
 
+        pthread_t p;
         pthread_create(&p, NULL, createProducer, &producer_threads_args[i]);
+        producer_threads[i] = p;
+
         printf("Thread %d created\n", thread_id);
     }
 
@@ -68,6 +71,8 @@ int main(int argc, char * argv[]) {
         pthread_join(producer_threads[i], NULL);
         printf("Thread %d finished\n", C + i + 1);
     }
+
+    finalizabuffer(buffer);
 
     return 0;
 }

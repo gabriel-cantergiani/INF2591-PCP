@@ -4,9 +4,8 @@
 #include <unistd.h>
 #include "buffer.h"
 
-sem_t sem;
-
 struct sbuffer {
+    sem_t sem;
     int * buffer; //buffer de N posicoes
     int * lidos; //array de tamanho C consumidores que indica quantos itens foram lidos por cada consumidor
     int * faltaler; //array de tamanho N que indica quantos consumidores faltam ler um item para cada posição do buffer
@@ -37,24 +36,24 @@ tbuffer* iniciabuffer (int numpos, int numprod, int numcons){
     }
 
     // Initialize semaphore
-    sem_init(&sem, 0, 1);
+    sem_init(&buf->sem, 0, 1);
 
     return buf;
 }
 
 void deposita (tbuffer* buffer, int item){
-    sem_wait(&sem);
+    sem_wait(&buffer->sem);
     printf("Producer producing...\n");
     sleep(5);
-    sem_post(&sem);
+    sem_post(&buffer->sem);
     return;
 }
 
 int consome (tbuffer* buffer, int meuid){
-    sem_wait(&sem);
+    sem_wait(&buffer->sem);
     printf("Consumer consuming...\n");
     sleep(5);
-    sem_post(&sem);
+    sem_post(&buffer->sem);
     return 1;
 }
 
