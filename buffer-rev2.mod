@@ -7,7 +7,7 @@ Modelagem do Problema de Broadcast
 
 int buffer[N] = {0,..,0}; //buffer de N posicoes
 int lidos[C] = {0,..,0}; //array de tamanho C consumidores que indica quantos itens foram lidos por cada consumidor
-int faltaler[N] = {0,..,0}; //array de tamanho N que indica quantos consumidores faltam ler um item para cada posição do buffer 
+int faltaler[N] = {0,..,0}; //array de tamanho N que indica quantos consumidores faltam ler um item para cada posição do buffer
 int escritos = 0; //variavel que indica a quantidade de itens já produzidos pelos produtores
 int prox_pos_escrita = 0; //variavel que indica a próxima posição livre para ser escrita no buffer
 int prox_pos_leitura[C] = {0,..,0}; //array de tamanho C consumidores que indica qual a próxima posição a ser lida para cada consumidor (índice é o id do consumidor)

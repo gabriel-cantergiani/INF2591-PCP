@@ -1,0 +1,8 @@
+version: '3'
+services:
+    pcp:
+        image: pcp
+        container_name: pcp
+        command: make all
+        volumes:
+            - .:/root
