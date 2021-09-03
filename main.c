@@ -27,7 +27,7 @@ int main(int argc, char * argv[]) {
     int items[I];
 
     for (int i=0; i < I; i++)
-        items[i] = i;
+        items[i] = 10+i;
 
     // Create buffer
     tbuffer * buffer = iniciabuffer(N, P, C);
