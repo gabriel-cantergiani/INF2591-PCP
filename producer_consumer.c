@@ -2,22 +2,22 @@
 #include "buffer.h"
 #include "producer_consumer.h"
 
-void *createConsumer (void * arg) {
+void * consume (void * arg) {
 
     consumerArgs * args = (consumerArgs *) arg;
 
-    // printf("[Thread %d] Teste Consome\n", args->consumerID);
-    consome(args->buffer, args->consumerID);
+    for(int i=0; i<args->items_num; i++)
+        consome(args->buffer, args->consumerID);
 
     return NULL;
 }
 
-void *createProducer (void * arg) {
+void * produce (void * arg) {
 
     producerArgs * args = (producerArgs *) arg;
 
-    // printf("[Thread %d] Teste Produz\n", args->producerID);
-    deposita(args->buffer, args->items[0]);
+    for(int i=0; i<args->items_num; i++)
+        deposita(args->buffer, args->items[i]);
 
     return NULL;
 }

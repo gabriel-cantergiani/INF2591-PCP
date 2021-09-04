@@ -36,11 +36,11 @@ int main(int argc, char * argv[]) {
     for (int i = 0; i < C; i++) {
 
         int thread_id = i + 1;
-        consumerArgs args = { thread_id, buffer };
+        consumerArgs args = { thread_id, buffer, P*I };
         consumer_threads_args[i] = args;
 
         pthread_t p;
-        pthread_create(&p, NULL, createConsumer, &consumer_threads_args[i]);
+        pthread_create(&p, NULL, consume, &consumer_threads_args[i]);
         consumer_threads[i] = p;
 
         printf("Consumer thread %d created\n", thread_id);
@@ -50,11 +50,11 @@ int main(int argc, char * argv[]) {
     for (int i = 0; i < P; i++) {
 
         int thread_id = C + i + 1;
-        producerArgs args = { thread_id, items, buffer };
+        producerArgs args = { thread_id, items, I, buffer };
         producer_threads_args[i] = args;
 
         pthread_t p;
-        pthread_create(&p, NULL, createProducer, &producer_threads_args[i]);
+        pthread_create(&p, NULL, produce, &producer_threads_args[i]);
         producer_threads[i] = p;
 
         printf("Producer thread %d created\n", thread_id);

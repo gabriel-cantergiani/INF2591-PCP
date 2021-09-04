@@ -3,14 +3,16 @@
 typedef struct {
     int consumerID;
     tbuffer * buffer;
+    int items_num;
 } consumerArgs;
 
 typedef struct {
     int producerID;
     int * items;
+    int items_num;
     tbuffer * buffer;
 } producerArgs;
 
-void *createConsumer (void * arg);
+void *consume (void * arg);
 
-void *createProducer (void * arg);
+void *produce (void * arg);
