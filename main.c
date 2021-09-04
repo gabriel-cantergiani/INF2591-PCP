@@ -43,7 +43,7 @@ int main(int argc, char * argv[]) {
         pthread_create(&p, NULL, createConsumer, &consumer_threads_args[i]);
         consumer_threads[i] = p;
 
-        printf("Thread %d created\n", thread_id);
+        printf("Consumer thread %d created\n", thread_id);
     }
 
     // Create producer threads
@@ -57,19 +57,19 @@ int main(int argc, char * argv[]) {
         pthread_create(&p, NULL, createProducer, &producer_threads_args[i]);
         producer_threads[i] = p;
 
-        printf("Thread %d created\n", thread_id);
+        printf("Producer thread %d created\n", thread_id);
     }
 
     // Wait for consumer threads to finish
     for (int i = 0; i < C; i++) {
         pthread_join(consumer_threads[i], NULL);
-        printf("Thread %d finished\n", i + 1);
+        printf("Consumer thread %d finished\n", i + 1);
     }
 
     // Wait for producer threads to finish
     for (int i = 0; i < P; i++) {
         pthread_join(producer_threads[i], NULL);
-        printf("Thread %d finished\n", C + i + 1);
+        printf("Producer thread %d finished\n", C + i + 1);
     }
 
     finalizabuffer(buffer);

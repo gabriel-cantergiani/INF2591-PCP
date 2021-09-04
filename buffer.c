@@ -69,14 +69,14 @@ void deposita (tbuffer* buffer, int item){
         printf("escritos++: %d\n", buffer->escritos);
         printf("prox_pos_escrita: %d\n", buffer->prox_pos_escrita);
     }
-   
+
     sem_post(&buffer->mutex);
     sem_post(&buffer->full);
     return;
 }
 
 int consome (tbuffer* buffer, int meuid){
-    sem_wait(&buffer->empty);
+    sem_wait(&buffer->full);
     sem_wait(&buffer->mutex);
     printf("Consumer consuming...\n");
     
@@ -96,7 +96,7 @@ int consome (tbuffer* buffer, int meuid){
     }
 
     sem_post(&buffer->mutex);
-    sem_post(&buffer->full);
+    sem_post(&buffer->empty);
     return 1;
 }
 
