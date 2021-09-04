@@ -52,54 +52,72 @@ tbuffer* iniciabuffer (int numpos, int numprod, int numcons){
 }
 
 void deposita (tbuffer* buffer, int item){
-    sem_wait(&buffer->empty);
-    sem_wait(&buffer->mutex);    
-    printf("[PRODUCER] Producer producing...\n");
-    
-    int index = buffer->prox_pos_escrita;
 
-    if(buffer->faltaler[index] == 0){
-        buffer->buffer[index] = item;
-        buffer->faltaler[index] = buffer->C;
-        buffer->escritos++;
-        buffer->prox_pos_escrita = (buffer->prox_pos_escrita + 1) % buffer->N;
+    int produced = 0;
+
+    while (!produced) {
+        sem_wait(&buffer->mutex);    
+        printf("[PRODUCER] Producer producing...\n");
         
-        printf("[PRODUCER] buffer[prox_pos_escrita] = item: %d\n", buffer->buffer[index]);
-        printf("[PRODUCER] faltaler[prox_pos_escrita] = C: %d\n", buffer->faltaler[index]);
-        printf("[PRODUCER] escritos++: %d\n", buffer->escritos);
-        printf("[PRODUCER] prox_pos_escrita: %d\n", buffer->prox_pos_escrita);
+        int index = buffer->prox_pos_escrita;
+
+        if(buffer->faltaler[index] == 0){
+            sem_wait(&buffer->empty);
+            buffer->buffer[index] = item;
+            buffer->faltaler[index] = buffer->C;
+            buffer->escritos++;
+            buffer->prox_pos_escrita = (buffer->prox_pos_escrita + 1) % buffer->N;
+            
+            printf("[PRODUCER] buffer[prox_pos_escrita] = item: %d\n", buffer->buffer[index]);
+            printf("[PRODUCER] faltaler[prox_pos_escrita] = C: %d\n", buffer->faltaler[index]);
+            printf("[PRODUCER] escritos++: %d\n", buffer->escritos);
+            printf("[PRODUCER] prox_pos_escrita: %d\n", buffer->prox_pos_escrita);
+
+            for(int i=0; i<buffer->C; i++)
+                sem_post(&buffer->full);
+
+            produced = 1;
+        }
+
+        sem_post(&buffer->mutex);
+        sleep(1);
     }
 
-    sem_post(&buffer->mutex);
-    for(int i=0; i<buffer->C; i++)
-        sem_post(&buffer->full);
-    sleep(1);
     return;
 }
 
 int consome (tbuffer* buffer, int meuid){
-    sem_wait(&buffer->full);
-    sem_wait(&buffer->mutex);
-    printf("[CONSUMER %d] Consumer consuming...\n", meuid);
-    
-    int index = buffer->prox_pos_leitura[meuid];
-    int item;
 
-    if(buffer->faltaler[index] > 0 && buffer->lidos[meuid] < buffer->escritos){
-        item = buffer->buffer[index];
-        buffer->faltaler[index]--;
-        buffer->lidos[meuid]++;
-        buffer->prox_pos_leitura[meuid] = (buffer->prox_pos_leitura[meuid] + 1) % buffer->N;
+    int consumed = 0;
 
-        printf("[CONSUMER %d] item: %d\n", meuid, buffer->buffer[index]);
-        printf("[CONSUMER %d] faltaler: %d\n", meuid, buffer->faltaler[index]);
-        printf("[CONSUMER %d] lidos[meuid]++: %d\n", meuid, buffer->lidos[meuid]);
-        printf("[CONSUMER %d] prox_pos_leitura: %d\n", meuid, buffer->prox_pos_leitura[meuid]);
+    while (!consumed) {
+
+        sem_wait(&buffer->mutex);
+        printf("[CONSUMER %d] Consumer consuming...\n", meuid);
+        
+        int index = buffer->prox_pos_leitura[meuid];
+        int item;
+
+        if(buffer->faltaler[index] > 0 && buffer->lidos[meuid] < buffer->escritos){
+            sem_wait(&buffer->full);
+            item = buffer->buffer[index];
+            buffer->faltaler[index]--;
+            buffer->lidos[meuid]++;
+            buffer->prox_pos_leitura[meuid] = (buffer->prox_pos_leitura[meuid] + 1) % buffer->N;
+
+            printf("[CONSUMER %d] item: %d\n", meuid, buffer->buffer[index]);
+            printf("[CONSUMER %d] faltaler: %d\n", meuid, buffer->faltaler[index]);
+            printf("[CONSUMER %d] lidos[meuid]++: %d\n", meuid, buffer->lidos[meuid]);
+            printf("[CONSUMER %d] prox_pos_leitura: %d\n", meuid, buffer->prox_pos_leitura[meuid]);
+            sem_post(&buffer->empty);
+
+            consumed = 1;
+        }
+
+        sem_post(&buffer->mutex);
+        sleep(2);
     }
 
-    sem_post(&buffer->mutex);
-    sem_post(&buffer->empty);
-    sleep(2);
     return 1;
 }
 
