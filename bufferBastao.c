@@ -113,6 +113,8 @@ void deposita (tbuffer* buffer, int item){
             }
         }
 
+        index = buffer->prox_pos_escrita;
+
         //se não tem consumidor esperando, ele checa se todos os consumidores já leram a próxima posição e se tem algum produtor esperando para produzir
         if(buffer->faltaler[index] == 0 && buffer->prodEsperando > 0){
             buffer->prodEsperando--;
@@ -137,11 +139,13 @@ int consome (tbuffer* buffer, int meuid){
         int item;
 
         if(buffer->faltaler[index] == 0){ //não existem itens a serem consumidos ainda
+            printf("1");
             sem_post(&buffer->mutex);
             sem_wait(&buffer->cons[meuid]); //esperando até que produtor libere este consumidor para ler
         }
 
         if(buffer->faltaler[index] > 0 && buffer->lidos[meuid] < buffer->escritos){
+            printf("2");
             item = buffer->buffer[index];
             buffer->faltaler[index]--;
             buffer->lidos[meuid]++;
@@ -155,22 +159,27 @@ int consome (tbuffer* buffer, int meuid){
 
         for(int c=0; c<buffer->C; c++){ //depois de  consumir o item, o consumidor checa se tem algum consumidor esperando
             if(buffer->lidos[c] < buffer->escritos){
+                printf("3");
                 sem_post(&buffer->cons[c]); //passa o bastão para o primeiro consumidor que estiver esperando
-                break;
+                return 1;
             }
         }
 
+        index = buffer->prox_pos_leitura[meuid];
+
         //se não tem consumidor esperando, ele checa se todos os consumidores já leram a próxima posição e se tem algum produtor esperando para produzir
         if(buffer->faltaler[index] == 0 && buffer->prodEsperando > 0){
+            printf("4");
             buffer->prodEsperando--;
             sem_post(&buffer->prod);
         }
         else{
+            printf("5");
             sem_post(&buffer->mutex);
         }
 
         if(buffer->faltaler[index] == 0 && buffer->lidos[meuid] == buffer->escritos)
-            break;
+            printf("6");
     }
 }
 
