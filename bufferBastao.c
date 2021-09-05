@@ -88,7 +88,6 @@ void deposita (tbuffer* buffer, int item){
         int index = buffer->prox_pos_escrita;
 
         if(buffer->faltaler[index] > 0){ //ainda existem consumidores para consumir (algum consumidor não consumiu o item daquela posição ainda)
-            printf("existem consumidores pra consumir");
             buffer->prodEsperando++;
             sem_post(&buffer->mutex); //produtor liberar o semáforo
             sem_wait(&buffer->prod); //e se coloca em espera
@@ -99,6 +98,7 @@ void deposita (tbuffer* buffer, int item){
             buffer->faltaler[index] = buffer->C;
             buffer->escritos++;
             buffer->prox_pos_escrita = (buffer->prox_pos_escrita + 1) % buffer->N;
+            index = buffer->prox_pos_escrita;
             
             printf("[PRODUCER] buffer[prox_pos_escrita] = item: %d\n", buffer->buffer[index]);
             printf("[PRODUCER] faltaler[prox_pos_escrita] = C: %d\n", buffer->faltaler[index]);
@@ -124,7 +124,7 @@ void deposita (tbuffer* buffer, int item){
 
         //rever
         if(buffer->faltaler[index] == 0 && buffer->prodEsperando == 0)
-            break;   
+            return;
     }
 }
 
@@ -146,6 +146,7 @@ int consome (tbuffer* buffer, int meuid){
             buffer->faltaler[index]--;
             buffer->lidos[meuid]++;
             buffer->prox_pos_leitura[meuid] = (buffer->prox_pos_leitura[meuid] + 1) % buffer->N;
+            index = buffer->prox_pos_leitura[meuid];
 
             printf("[CONSUMER %d] item: %d\n", meuid, buffer->buffer[index]);
             printf("[CONSUMER %d] faltaler: %d\n", meuid, buffer->faltaler[index]);
@@ -156,7 +157,7 @@ int consome (tbuffer* buffer, int meuid){
         for(int c=0; c<buffer->C; c++){ //depois de  consumir o item, o consumidor checa se tem algum consumidor esperando
             if(buffer->lidos[c] < buffer->escritos){
                 sem_post(&buffer->cons[c]); //passa o bastão para o primeiro consumidor que estiver esperando
-                break;
+                return 1;
             }
         }
 
