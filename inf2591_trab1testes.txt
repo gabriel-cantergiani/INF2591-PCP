@@ -6,7 +6,9 @@ Grupo: Gabriel Cantergiani
 Broadcast entre threads usando um buffer compartilhado
 
 Testes:
-1)Buffer de tamanho 1
+1) O teste a seguir propõe visualizar um comportamento simples do broadcast. Somente 1 produtor vai produzir 1 item e cada consumidor deve consumir este item totalizando 2 itens consumidos (P*I).
+
+Buffer de tamanho 1
 1 Produtor
 2 Consumidores
 1 Item a ser produzido 
@@ -31,7 +33,9 @@ Consumer thread 1 finished
 Consumer thread 2 finished
 Producer thread 3 finished
 
-2)Buffer de tamanho 1
+2)O teste a seguir permite visualizar o processo de broadcast ocorrendo em somente 1 posição do buffer.
+
+Buffer de tamanho 1
 2 Produtores
 2 Consumidores
 2 Itens a serem produzidos
@@ -95,7 +99,9 @@ Consumer thread 2 finished
 Producer thread 3 finished
 Producer thread 4 finished
 
-3)Buffer de tamanho 2
+3)O teste a seguir já permite que visualizemos melhor o buffer circular.
+
+Buffer de tamanho 2
 1 Produtor
 2 Consumidores
 3 Itens a serem produzidos
@@ -146,7 +152,9 @@ Consumer thread 1 finished
 Consumer thread 2 finished
 Producer thread 3 finished
 
-4)Buffer de tamanho 5
+4)No teste a seguir adicionamos mais produtores para que fosse possível visualizar como ocorre o processo de broadcast, também visualizando melhor o buffer circular. 
+
+Buffer de tamanho 5
 2 Produtores
 3 Consumidores
 6 Itens a serem produzidos
@@ -356,8 +364,9 @@ Consumer thread 3 finished
 Producer thread 4 finished
 Producer thread 5 finished
 
-10 5 3 5
-4)Buffer de tamanho 10
+4)O teste a seguir se propõe a ser um pouco maior.
+
+Buffer de tamanho 10
 5 Produtores
 3 Consumidores
 5 Itens a serem produzidos
