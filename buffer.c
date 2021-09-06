@@ -94,12 +94,15 @@ tbuffer* iniciabuffer (int numpos, int numprod, int numcons){
 
 void deposita (tbuffer* buffer, int item){
 
+    // Locking Mutex
     sem_wait(&buffer->mutex);    
     printf("[PRODUCER] Producer producing...\n");
     
     int index = buffer->prox_pos_escrita;
 
+    // Check if there is available space in buffer
     if(buffer->faltaler[index] > 0){
+        // If not, release mutex and waits for baton
         buffer->prodEsperando++;
         sem_post(&buffer->mutex);
         printf("[PRODUCER] Producer waiting for baton...\n");
@@ -108,17 +111,16 @@ void deposita (tbuffer* buffer, int item){
         buffer->prodEsperando--;
     }
 
+    // Put item in buffer and update variables
     buffer->buffer[index] = item;
     buffer->faltaler[index] = buffer->C;
     buffer->escritos++;
     buffer->prox_pos_escrita = (buffer->prox_pos_escrita + 1) % buffer->N;
     
     printf("[PRODUCER] Producer wrote on buffer[%d] = item: %d\n", index, buffer->buffer[index]);
-    // printf("[PRODUCER] faltaler[prox_pos_escrita] = C: %d\n", buffer->faltaler[index]);
-    // printf("[PRODUCER] escritos++: %d\n", buffer->escritos);
-    // printf("[PRODUCER] prox_pos_escrita: %d\n", buffer->prox_pos_escrita);
     sleep(1);
 
+    // Check if there is a consumer waiting for baton
     for(int i=0; i<buffer->C; i++){
         if(buffer->consEsperando[i] && buffer->escritos > buffer->lidos[i]){
             printf("[PRODUCER] Producer passing baton to consumer %d\n", i);
@@ -127,12 +129,13 @@ void deposita (tbuffer* buffer, int item){
         }
     }
 
+    // Check if there is a producer waiting for baton
     if (buffer->prodEsperando > 0){
         printf("[PRODUCER] Producer passing baton to other producer\n");
         sem_post(&buffer->prod);
     }
     else {
-        printf("[PRODUCER] Producer releasing baton\n");
+        printf("[PRODUCER] Producer releasing mutex\n");
         sem_post(&buffer->mutex);
     }
 
@@ -141,13 +144,16 @@ void deposita (tbuffer* buffer, int item){
 
 int consome (tbuffer* buffer, int meuid){
 
+    // Locking Mutex
     sem_wait(&buffer->mutex);
     printf("[CONSUMER %d] Consumer consuming...\n", meuid);
     
     int index = buffer->prox_pos_leitura[meuid];
     int item;
 
+    // Check if there are items to read
     if(buffer->lidos[meuid] >= buffer->escritos){
+        // If not, releases mutex and waits for baton
         printf("[CONSUMER %d] Consumer waiting for baton...\n", meuid);
         buffer->consEsperando[meuid] = 1;
         sem_post(&buffer->mutex);
@@ -156,17 +162,16 @@ int consome (tbuffer* buffer, int meuid){
         buffer->consEsperando[meuid] = 0;
     }
 
+    // Read item from buffer
     item = buffer->buffer[index];
     buffer->faltaler[index]--;
     buffer->lidos[meuid]++;
     buffer->prox_pos_leitura[meuid] = (buffer->prox_pos_leitura[meuid] + 1) % buffer->N;
 
     printf("[CONSUMER %d] Consumer read from buffer[%d] item: %d\n", meuid, index, buffer->buffer[index]);
-    // printf("[CONSUMER %d] faltaler: %d\n", meuid, buffer->faltaler[index]);
-    // printf("[CONSUMER %d] lidos[meuid]++: %d\n", meuid, buffer->lidos[meuid]);
-    // printf("[CONSUMER %d] prox_pos_leitura: %d\n", meuid, buffer->prox_pos_leitura[meuid]);
-    sleep(2);
+    sleep(1);
 
+    // Check if there is a consumer waiting for baton
     for(int i=0; i<buffer->C; i++){
         if(buffer->consEsperando[i] && buffer->escritos > buffer->lidos[i]){
             printf("[CONSUMER %d] Consumer passing baton to other consumer %d\n", meuid, i);
@@ -175,6 +180,7 @@ int consome (tbuffer* buffer, int meuid){
         }
     }
 
+    // Check if there is a producer waiting for baton
     if (buffer->faltaler[buffer->prox_pos_escrita] == 0 && buffer->prodEsperando > 0){
         printf("[CONSUMER %d] Consumer passing baton to producer\n", meuid);
         sem_post(&buffer->prod);
@@ -189,6 +195,7 @@ int consome (tbuffer* buffer, int meuid){
 
 void finalizabuffer (tbuffer* buffer){
 
+    // Free allocated memory
     free(buffer->buffer);
     free(buffer->lidos);
     free(buffer->faltaler);

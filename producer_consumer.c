@@ -2,6 +2,7 @@
 #include "buffer.h"
 #include "producer_consumer.h"
 
+// Consumes a given number of items
 void * consume (void * arg) {
 
     consumerArgs * args = (consumerArgs *) arg;
@@ -12,6 +13,7 @@ void * consume (void * arg) {
     return NULL;
 }
 
+// Produces a given number of items
 void * produce (void * arg) {
 
     producerArgs * args = (producerArgs *) arg;
