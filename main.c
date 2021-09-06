@@ -35,15 +35,15 @@ int main(int argc, char * argv[]) {
     // Create consumer threads
     for (int i = 0; i < C; i++) {
 
-        int thread_id = i + 1;
+        int thread_id = i;
         consumerArgs args = { thread_id, buffer, P*I };
         consumer_threads_args[i] = args;
 
+        printf("Consumer thread %d created\n", thread_id);
         pthread_t p;
         pthread_create(&p, NULL, consume, &consumer_threads_args[i]);
         consumer_threads[i] = p;
 
-        printf("Consumer thread %d created\n", thread_id);
     }
 
     // Create producer threads
@@ -53,11 +53,11 @@ int main(int argc, char * argv[]) {
         producerArgs args = { thread_id, items, I, buffer };
         producer_threads_args[i] = args;
 
+        printf("Producer thread %d created\n", thread_id);
         pthread_t p;
         pthread_create(&p, NULL, produce, &producer_threads_args[i]);
         producer_threads[i] = p;
 
-        printf("Producer thread %d created\n", thread_id);
     }
 
     // Wait for consumer threads to finish
