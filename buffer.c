@@ -9,7 +9,7 @@
 struct sbuffer {
     sem_t mutex;
     sem_t s_producers;
-    sem_t ** s_consumers;
+    sem_t * s_consumers;
     int producers_waiting;
     int * consumers_waiting;
     int * buffer; //buffer de N posicoes
@@ -50,7 +50,7 @@ tbuffer* iniciabuffer (int numpos, int numprod, int numcons){
     buf->faltaler = (int *) malloc(sizeof(int) * numpos);
     buf->prox_pos_leitura = (int *) malloc(sizeof(int) * numcons);
     buf->consumers_waiting = (int *) malloc(sizeof(int) * numcons);
-    buf->s_consumers = (sem_t **) malloc(sizeof(sem_t) * numcons);
+    buf->s_consumers = (sem_t *) malloc(sizeof(sem_t) * numcons);
 
     // Initialize variables
     buf->escritos = 0;
@@ -68,21 +68,10 @@ tbuffer* iniciabuffer (int numpos, int numprod, int numcons){
         buf->lidos[i] = 0;
         buf->prox_pos_leitura[i] = 0;
         buf->consumers_waiting[i] = 0;
-        // sem_t sem = buf->s_consumers[i];
-        // sem_init(&sem, 0, 0);
-        // sem_init(&sem, 0, 0);
-        // buf->s_consumers[i] = sem;
-        // int length = snprintf( NULL, 0, "%d", i );
-        // char* str = malloc( length + 1 );
-        // snprintf( str, length + 1, "%d", i );
-        // printf("SEM NAME: %s", str);
-        char * semaphoreName;
-        semaphoreName = nameRandomize ("/semmC", 20 + i);
-        sem_unlink(semaphoreName);
-        buf->s_consumers[i] = sem_open(semaphoreName, O_CREAT|O_EXCL, S_IRUSR | S_IWUSR, 0);
-        if (buf->s_consumers[i] == SEM_FAILED){
-            printf("Error opening semaphore semCons[%d].\n", i);
-            exit(0);
+        int res = sem_init(&buf->s_consumers[i], 0, 0);
+        if (res == -1) {
+            printf("Error creating semaphore...");
+            exit(1);
         }
     }
 
@@ -118,12 +107,12 @@ void deposita (tbuffer* buffer, int item){
     // printf("[PRODUCER] faltaler[prox_pos_escrita] = C: %d\n", buffer->faltaler[index]);
     // printf("[PRODUCER] escritos++: %d\n", buffer->escritos);
     // printf("[PRODUCER] prox_pos_escrita: %d\n", buffer->prox_pos_escrita);
+    sleep(1);
 
     for(int i=0; i<buffer->C; i++){
         if(buffer->consumers_waiting[i] && buffer->escritos > buffer->lidos[i]){
             printf("[PRODUCER] Producer passing baton to consumer %d\n", i);
-            sem_post(buffer->s_consumers[i]);
-            sleep(1);
+            sem_post(&buffer->s_consumers[i]);
             return;
         }
     }
@@ -137,7 +126,6 @@ void deposita (tbuffer* buffer, int item){
         sem_post(&buffer->mutex);
     }
 
-    sleep(1);
     return;
 }
 
@@ -153,7 +141,7 @@ int consome (tbuffer* buffer, int meuid){
         printf("[CONSUMER %d] Consumer waiting for baton...\n", meuid);
         buffer->consumers_waiting[meuid] = 1;
         sem_post(&buffer->mutex);
-        sem_wait(buffer->s_consumers[meuid]);
+        sem_wait(&buffer->s_consumers[meuid]);
         printf("[CONSUMER %d] Consumer received baton!\n", meuid);
         buffer->consumers_waiting[meuid] = 0;
     }
@@ -167,12 +155,12 @@ int consome (tbuffer* buffer, int meuid){
     // printf("[CONSUMER %d] faltaler: %d\n", meuid, buffer->faltaler[index]);
     // printf("[CONSUMER %d] lidos[meuid]++: %d\n", meuid, buffer->lidos[meuid]);
     // printf("[CONSUMER %d] prox_pos_leitura: %d\n", meuid, buffer->prox_pos_leitura[meuid]);
+    sleep(2);
 
     for(int i=0; i<buffer->C; i++){
         if(buffer->consumers_waiting[i] && buffer->escritos > buffer->lidos[i]){
             printf("[CONSUMER %d] Consumer passing baton to other consumer %d\n", meuid, i);
-            sem_post(buffer->s_consumers[i]);
-            sleep(2);
+            sem_post(&buffer->s_consumers[i]);
             return item;
         }
     }
@@ -186,7 +174,6 @@ int consome (tbuffer* buffer, int meuid){
         sem_post(&buffer->mutex);
     }
 
-    sleep(2);
     return item;
 }
 
