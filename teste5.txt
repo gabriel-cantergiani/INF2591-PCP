@@ -1,3 +1,10 @@
+INF2591
+Professora: Noemi Rodriguez
+Grupo: Gabriel Cantergiani
+       Mariana Salgueiro
+
+Broadcast entre threads usando um buffer compartilhado
+
 5) O teste a seguir se propõe a ser um pouco maior, na qual, pode-se notar bem o revezamento de produção dos produtores, o preenchimento do buffer circular e o consumo por parte dos produtores. Neste caso, o total de itens consumido foi 25(P*I).
 
 Buffer de tamanho 10

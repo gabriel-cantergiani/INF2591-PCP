@@ -1,3 +1,10 @@
+INF2591
+Professora: Noemi Rodriguez
+Grupo: Gabriel Cantergiani
+       Mariana Salgueiro
+
+Broadcast entre threads usando um buffer compartilhado
+
 2) O teste a seguir permite visualizar o processo de broadcast ocorrendo em somente 1 posição do buffer.
 
 Buffer de tamanho 1

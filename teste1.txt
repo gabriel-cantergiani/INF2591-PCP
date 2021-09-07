@@ -1,3 +1,10 @@
+INF2591
+Professora: Noemi Rodriguez
+Grupo: Gabriel Cantergiani
+       Mariana Salgueiro
+
+Broadcast entre threads usando um buffer compartilhado
+
 1) O teste a seguir propõe visualizar um comportamento simples do broadcast. Somente 1 produtor vai produzir 1 item e cada consumidor deve consumir este item totalizando 2 itens consumidos (P*I).
 
 Buffer de tamanho 1

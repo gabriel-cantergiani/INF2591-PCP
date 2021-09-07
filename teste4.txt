@@ -1,3 +1,10 @@
+INF2591
+Professora: Noemi Rodriguez
+Grupo: Gabriel Cantergiani
+       Mariana Salgueiro
+
+Broadcast entre threads usando um buffer compartilhado
+
 4) No teste a seguir adicionamos mais produtores para que fosse possível visualizar como ocorre o processo de broadcast, também visualizando melhor o buffer circular. 
 
 Buffer de tamanho 5

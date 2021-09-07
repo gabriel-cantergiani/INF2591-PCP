@@ -1,3 +1,10 @@
+INF2591
+Professora: Noemi Rodriguez
+Grupo: Gabriel Cantergiani
+       Mariana Salgueiro
+
+Broadcast entre threads usando um buffer compartilhado
+
 3) O teste a seguir já permite que visualizemos melhor o buffer circular.
 
 Buffer de tamanho 2
