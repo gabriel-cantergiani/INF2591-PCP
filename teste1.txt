@@ -1,0 +1,33 @@
+INF2591
+Professora: Noemi Rodriguez
+Grupo: Gabriel Cantergiani
+       Mariana Salgueiro
+
+Broadcast entre threads usando um buffer compartilhado
+
+1) O teste a seguir propõe visualizar um comportamento simples do broadcast. Somente 1 produtor vai produzir 1 item e cada consumidor deve consumir este item totalizando 2 itens consumidos (P*I).
+
+Buffer de tamanho 1
+1 Produtor
+2 Consumidores
+1 Item a ser produzido 
+
+Consumer thread 0 created
+Consumer thread 1 created
+[CONSUMER 0] Consumer consuming...
+[CONSUMER 0] Consumer waiting for baton...
+Producer thread 3 created
+[CONSUMER 1] Consumer consuming...
+[CONSUMER 1] Consumer waiting for baton...
+[PRODUCER] Producer producing...
+[PRODUCER] Producer wrote on buffer[0] = item: 10
+[PRODUCER] Producer passing baton to consumer 0
+[CONSUMER 0] Consumer received baton!
+[CONSUMER 0] Consumer read from buffer[0] item: 10
+[CONSUMER 0] Consumer passing baton to other consumer 1
+[CONSUMER 1] Consumer received baton!
+[CONSUMER 1] Consumer read from buffer[0] item: 10
+Consumer thread 1 finished
+[CONSUMER 1] Consumer releasing mutex
+Consumer thread 2 finished
+Producer thread 3 finished
