@@ -6,7 +6,7 @@ O tamanho do buffer, o número de produtores, o número de consumidores e o núm
 
 É possível acompanhar a execução do programa através de logs na saída padrão (prints). Para facilitar o acompanhamento do algoritmo, as operações de produção e consumo possuem um delay de 1 segundo.
 
-Foram realizados diversos testes com diferentes parâmetros. Os resultados destes testes foram documentados no arquivo ```testes.txt```.
+Foram realizados diversos testes com diferentes parâmetros. Os resultados destes testes foram documentados no arquivo ```testes/inf2591_trab1testes.txt``` e os outputs de cada teste estão nos arquivos ```teste/testeX.txt```.
 
 A seguir, instruções de uso do programa:
 
@@ -29,5 +29,5 @@ Onde:
 
 Exemplo:
 ```bash
-$ ./main 10 5 5 20
+$ ./main 5 3 3 10
 ```

@@ -111,6 +111,8 @@ void deposita (tbuffer* buffer, int item){
         buffer->prodEsperando--;
     }
 
+    index = buffer->prox_pos_escrita;
+
     // Put item in buffer and update variables
     buffer->buffer[index] = item;
     buffer->faltaler[index] = buffer->C;
@@ -148,8 +150,6 @@ int consome (tbuffer* buffer, int meuid){
     sem_wait(&buffer->mutex);
     printf("[CONSUMER %d] Consumer consuming...\n", meuid);
     
-    int index = buffer->prox_pos_leitura[meuid];
-    int item;
 
     // Check if there are items to read
     if(buffer->lidos[meuid] >= buffer->escritos){
@@ -161,6 +161,9 @@ int consome (tbuffer* buffer, int meuid){
         printf("[CONSUMER %d] Consumer received baton!\n", meuid);
         buffer->consEsperando[meuid] = 0;
     }
+
+    int index = buffer->prox_pos_leitura[meuid];
+    int item;
 
     // Read item from buffer
     item = buffer->buffer[index];
