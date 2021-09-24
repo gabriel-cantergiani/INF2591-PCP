@@ -5,25 +5,25 @@
 #define a 5.0
 #define b 12.0
 
-float quadrado (float x) {
+double quadrado (double x) {
     return x*x;
 }
 
 typedef struct {
     int thread_id;
-    float (*func_ptr) (float);
-    float left;
-    float right;
-    float tolerance;
+    double (*func_ptr) (double);
+    double left;
+    double right;
+    double tolerance;
 } taskArgs;
 
-float calculateAreaRecursively (float left, float right, float (*func)(float), float totalArea, float tolerance) {
+double calculateAreaRecursively (double left, double right, double (*func)(double), double totalArea, double tolerance) {
 
-    float height = (right-left)/2;
-    float middle = (left+right)/2;
-    float leftArea = ( (func(left) + func(middle)) * height )/ 2;
-    float rightArea = ( (func(middle) + func(right)) * height )/ 2;
-    float error = totalArea - (leftArea + rightArea);
+    double height = (right-left)/2;
+    double middle = (left+right)/2;
+    double leftArea = ( (func(left) + func(middle)) * height )/ 2;
+    double rightArea = ( (func(middle) + func(right)) * height )/ 2;
+    double error = totalArea - (leftArea + rightArea);
 
     if (error < tolerance)
         return totalArea;
@@ -35,13 +35,13 @@ void * task (void * arg) {
 
     taskArgs * args = (taskArgs *) arg;
 
-    float height = args->right - args->left;
-    float totalArea = ( (args->func_ptr(args->left) + args->func_ptr(args->right)) * height )/ 2;
+    double height = args->right - args->left;
+    double totalArea = ( (args->func_ptr(args->left) + args->func_ptr(args->right)) * height )/ 2;
 
-    float area = calculateAreaRecursively(args->left, args->right, args->func_ptr, totalArea, args->tolerance);
+    double area = calculateAreaRecursively(args->left, args->right, args->func_ptr, totalArea, args->tolerance);
     printf("\n[Thread %d] Subinterval area: %f\n", args->thread_id, area);
 
-    float * result = malloc(sizeof(float));
+    double * result = malloc(sizeof(double));
     *result = area;
 
     return (void*) result;
@@ -56,19 +56,19 @@ int main (int argc, char * argv[]) {
 
     // Initialize variables
     int num_threads = atoi(argv[1]);
-    float tolerance = atof(argv[2]);
+    double tolerance = atof(argv[2]);
 
-    float (*func)(float) = &quadrado;
+    double (*func)(double) = &quadrado;
     pthread_t worker_threads[num_threads];
 
     // Prepare values
-    float height = (b-a)/num_threads;
+    double height = (b-a)/num_threads;
 
     // Create worker threads
     for (int i = 0; i < num_threads; i++) {
 
-        float left = a + height*i;
-        float right = left + height;
+        double left = a + height*i;
+        double right = left + height;
 
         int thread_id = i + 1;
         taskArgs args = { 
@@ -86,14 +86,14 @@ int main (int argc, char * argv[]) {
         printf("[Main thread] Worker thread %d created\n", thread_id);
     }
 
-    float totalArea = 0;
+    double totalArea = 0;
 
     // Wait for worker threads to finish
     for (int i = 0; i < num_threads; i++) {
         void * result;
         pthread_join(worker_threads[i], &result);
-        printf("[Main thread] Worker thread %d finished with subinterval area of: %f\n", i+1, *(float*)result);
-        totalArea += *(float*)result;
+        printf("[Main thread] Worker thread %d finished with subinterval area of: %f\n", i+1, *(double*)result);
+        totalArea += *(double*)result;
     }
 
     printf("\n-------\n");
