@@ -2,6 +2,15 @@
 #include <stdlib.h>
 #include "task.h"
 
+void fake_processing(double x) {
+    for (int i=0; i< 10000000; i++) {
+        double k = x*x*x;
+        double p = k*500.50005;
+        double m = p/(x*x);
+        k = m;
+    }
+}
+
 double calculateAreaRecursively (double left, double right, double (*func)(double), double totalArea, double tolerance) {
 
     double height = (right-left)/2;

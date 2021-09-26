@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <omp.h>
+#include <time.h>
 #include "task.h"
 
 #define a 5.0
 #define b 12.0
 
 double quadrado (double x) {
+    // FAKE PROCESSING...
+    fake_processing(x);
     return x*x;
 }
 
@@ -16,6 +19,10 @@ int main (int argc, char * argv[]) {
         printf("Usage: ./var1_openmp <num_threads> <tolerance>\n");
         exit(1);
     }
+
+    time_t begin, end;
+     
+    begin = time(NULL);
 
     // Initialize variables
     int num_threads = atoi(argv[1]);
@@ -50,7 +57,13 @@ int main (int argc, char * argv[]) {
         totalArea += result;   
     }
 
-    printf("\n-------\n");
-    printf("[Main thread] Total area: %f\n", totalArea);
+    end = time(NULL);
+
+    printf("\n\n-------\n\n");
+    printf("[Main thread][Var1 - OpenMP] Tolerance: %f\n", tolerance);
+    printf("[Main thread][Var1 - OpenMP] Number of threads: %d\n", num_threads);
+    printf("[Main thread][Var1 - OpenMP] Total area: %f\n", totalArea);
+    printf("[Main thread][Var1 - OpenMP] Total execution time: %f seconds\n\n", difftime(end, begin));
+    printf("\n\n-------\n\n");
 
 }

@@ -1,0 +1,183 @@
+./var1_pthread 1 0.00005
+[Main thread] Worker thread 1 created
+
+[Thread 1] Subinterval area: 534.336823
+[Main thread] Worker thread 1 finished with subinterval area of: 534.336823
+
+
+-------
+
+[Main thread][Var1 - Pthread] Tolerance: 0.000050
+[Main thread][Var1 - Pthread] Number of threads: 1
+[Main thread][Var1 - Pthread] Total area: 534.336823
+[Main thread][Var1 - Pthread] Total execution time: 23.000000 seconds
+
+
+-------
+
+./var1_pthread 2 0.00005
+[Main thread] Worker thread 1 created
+[Main thread] Worker thread 2 created
+
+[Thread 1] Subinterval area: 163.043411
+[Main thread] Worker thread 1 finished with subinterval area of: 163.043411
+
+[Thread 2] Subinterval area: 371.293411
+[Main thread] Worker thread 2 finished with subinterval area of: 371.293411
+
+
+-------
+
+[Main thread][Var1 - Pthread] Tolerance: 0.000050
+[Main thread][Var1 - Pthread] Number of threads: 2
+[Main thread][Var1 - Pthread] Total area: 534.336823
+[Main thread][Var1 - Pthread] Total execution time: 18.000000 seconds
+
+
+-------
+
+./var1_pthread 3 0.00005
+[Main thread] Worker thread 1 created
+[Main thread] Worker thread 2 created
+[Main thread] Worker thread 3 created
+
+[Thread 1] Subinterval area: 89.792191
+[Main thread] Worker thread 1 finished with subinterval area of: 89.792191
+
+[Thread 2] Subinterval area: 169.644043
+[Main thread] Worker thread 2 finished with subinterval area of: 169.644043
+
+[Thread 3] Subinterval area: 274.903302
+[Main thread] Worker thread 3 finished with subinterval area of: 274.903302
+
+
+-------
+
+[Main thread][Var1 - Pthread] Tolerance: 0.000050
+[Main thread][Var1 - Pthread] Number of threads: 3
+[Main thread][Var1 - Pthread] Total area: 534.339536
+[Main thread][Var1 - Pthread] Total execution time: 10.000000 seconds
+
+
+-------
+
+./var1_pthread 4 0.00005
+[Main thread] Worker thread 1 created
+[Main thread] Worker thread 2 created
+[Main thread] Worker thread 3 created
+[Main thread] Worker thread 4 created
+
+[Thread 3] Subinterval area: 154.256081
+
+[Thread 4] Subinterval area: 217.037331
+
+[Thread 2] Subinterval area: 102.193581
+
+[Thread 1] Subinterval area: 60.849831
+[Main thread] Worker thread 1 finished with subinterval area of: 60.849831
+[Main thread] Worker thread 2 finished with subinterval area of: 102.193581
+[Main thread] Worker thread 3 finished with subinterval area of: 154.256081
+[Main thread] Worker thread 4 finished with subinterval area of: 217.037331
+
+
+-------
+
+[Main thread][Var1 - Pthread] Tolerance: 0.000050
+[Main thread][Var1 - Pthread] Number of threads: 4
+[Main thread][Var1 - Pthread] Total area: 534.336823
+[Main thread][Var1 - Pthread] Total execution time: 13.000000 seconds
+
+
+-------
+
+./var1_pthread 1 0.0000005
+[Main thread] Worker thread 1 created
+
+[Thread 1] Subinterval area: 534.333551
+[Main thread] Worker thread 1 finished with subinterval area of: 534.333551
+
+
+-------
+
+[Main thread][Var1 - Pthread] Tolerance: 0.000000
+[Main thread][Var1 - Pthread] Number of threads: 1
+[Main thread][Var1 - Pthread] Total area: 534.333551
+[Main thread][Var1 - Pthread] Total execution time: 100.000000 seconds
+
+
+-------
+
+./var1_pthread 2 0.0000005
+[Main thread] Worker thread 1 created
+[Main thread] Worker thread 2 created
+
+[Thread 1] Subinterval area: 163.041776
+[Main thread] Worker thread 1 finished with subinterval area of: 163.041776
+
+[Thread 2] Subinterval area: 371.291776
+[Main thread] Worker thread 2 finished with subinterval area of: 371.291776
+
+
+-------
+
+[Main thread][Var1 - Pthread] Tolerance: 0.000000
+[Main thread][Var1 - Pthread] Number of threads: 2
+[Main thread][Var1 - Pthread] Total area: 534.333551
+[Main thread][Var1 - Pthread] Total execution time: 69.000000 seconds
+
+
+-------
+
+./var1_pthread 3 0.0000005
+[Main thread] Worker thread 1 created
+[Main thread] Worker thread 2 created
+[Main thread] Worker thread 3 created
+
+[Thread 1] Subinterval area: 89.790156
+[Main thread] Worker thread 1 finished with subinterval area of: 89.790156
+
+[Thread 3] Subinterval area: 274.901267
+
+[Thread 2] Subinterval area: 169.642008
+[Main thread] Worker thread 2 finished with subinterval area of: 169.642008
+[Main thread] Worker thread 3 finished with subinterval area of: 274.901267
+
+
+-------
+
+[Main thread][Var1 - Pthread] Tolerance: 0.000000
+[Main thread][Var1 - Pthread] Number of threads: 3
+[Main thread][Var1 - Pthread] Total area: 534.333430
+[Main thread][Var1 - Pthread] Total execution time: 87.000000 seconds
+
+
+-------
+
+./var1_pthread 4 0.0000005
+[Main thread] Worker thread 1 created
+[Main thread] Worker thread 2 created
+[Main thread] Worker thread 3 created
+[Main thread] Worker thread 4 created
+
+[Thread 3] Subinterval area: 154.255263
+
+[Thread 4] Subinterval area: 217.036513
+
+[Thread 2] Subinterval area: 102.192763
+
+[Thread 1] Subinterval area: 60.849013
+[Main thread] Worker thread 1 finished with subinterval area of: 60.849013
+[Main thread] Worker thread 2 finished with subinterval area of: 102.192763
+[Main thread] Worker thread 3 finished with subinterval area of: 154.255263
+[Main thread] Worker thread 4 finished with subinterval area of: 217.036513
+
+
+-------
+
+[Main thread][Var1 - Pthread] Tolerance: 0.000000
+[Main thread][Var1 - Pthread] Number of threads: 4
+[Main thread][Var1 - Pthread] Total area: 534.333551
+[Main thread][Var1 - Pthread] Total execution time: 52.000000 seconds
+
+
+-------

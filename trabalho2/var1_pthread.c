@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <time.h>
 #include "task.h"
 
 #define a 5.0
 #define b 12.0
 
 double quadrado (double x) {
+    // FAKE PROCESSING...
+    fake_processing(x);
     return x*x;
 }
 
@@ -16,6 +19,10 @@ int main (int argc, char * argv[]) {
         printf("Usage: ./var1_pthread <num_threads> <tolerance>\n");
         exit(1);
     }
+
+    time_t begin, end;
+     
+    begin = time(NULL);
 
     // Initialize variables
     int num_threads = atoi(argv[1]);
@@ -34,16 +41,15 @@ int main (int argc, char * argv[]) {
         double right = left + height;
 
         int thread_id = i + 1;
-        taskArgs args = { 
-            thread_id,
-            func,
-            left,
-            right,
-            tolerance
-        };
+        taskArgs * args = (taskArgs *) malloc(sizeof(taskArgs));
+        args->thread_id = thread_id;
+        args->func_ptr = func;
+        args->left = left;
+        args->right = right;
+        args->tolerance = tolerance;
         
         pthread_t p;
-        pthread_create(&p, NULL, parallel_task_pthread, &args);
+        pthread_create(&p, NULL, parallel_task_pthread, args);
         
         worker_threads[i] = p;
         printf("[Main thread] Worker thread %d created\n", thread_id);
@@ -59,7 +65,13 @@ int main (int argc, char * argv[]) {
         totalArea += *(double*)result;
     }
 
-    printf("\n-------\n");
-    printf("[Main thread] Total area: %f\n", totalArea);
+    end = time(NULL);
+
+    printf("\n\n-------\n\n");
+    printf("[Main thread][Var1 - Pthread] Tolerance: %f\n", tolerance);
+    printf("[Main thread][Var1 - Pthread] Number of threads: %d\n", num_threads);
+    printf("[Main thread][Var1 - Pthread] Total area: %f\n", totalArea);
+    printf("[Main thread][Var1 - Pthread] Total execution time: %f seconds\n", difftime(end, begin));
+    printf("\n\n-------\n\n");
 
 }

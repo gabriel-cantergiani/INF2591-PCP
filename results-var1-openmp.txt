@@ -1,0 +1,152 @@
+gcc -Wall -fopenmp -o var1_openmp var1_openmp.c task.c
+./var1_openmp 1 0.00005
+
+[Thread 1] Subinterval area: 534.336823
+
+
+-------
+
+[Main thread][Var1 - OpenMP] Tolerance: 0.000050
+[Main thread][Var1 - OpenMP] Number of threads: 1
+[Main thread][Var1 - OpenMP] Total area: 534.336823
+[Main thread][Var1 - OpenMP] Total execution time: 24.000000 seconds
+
+
+
+-------
+
+./var1_openmp 2 0.00005
+
+[Thread 2] Subinterval area: 371.293411
+
+[Thread 1] Subinterval area: 163.043411
+
+
+-------
+
+[Main thread][Var1 - OpenMP] Tolerance: 0.000050
+[Main thread][Var1 - OpenMP] Number of threads: 2
+[Main thread][Var1 - OpenMP] Total area: 534.336823
+[Main thread][Var1 - OpenMP] Total execution time: 15.000000 seconds
+
+
+
+-------
+
+./var1_openmp 3 0.00005
+
+[Thread 1] Subinterval area: 89.792191
+
+[Thread 2] Subinterval area: 169.644043
+
+[Thread 3] Subinterval area: 274.903302
+
+
+-------
+
+[Main thread][Var1 - OpenMP] Tolerance: 0.000050
+[Main thread][Var1 - OpenMP] Number of threads: 3
+[Main thread][Var1 - OpenMP] Total area: 534.339536
+[Main thread][Var1 - OpenMP] Total execution time: 8.000000 seconds
+
+
+
+-------
+
+./var1_openmp 4 0.00005
+
+[Thread 2] Subinterval area: 102.193581
+
+[Thread 3] Subinterval area: 154.256081
+
+[Thread 1] Subinterval area: 60.849831
+
+[Thread 4] Subinterval area: 217.037331
+
+
+-------
+
+[Main thread][Var1 - OpenMP] Tolerance: 0.000050
+[Main thread][Var1 - OpenMP] Number of threads: 4
+[Main thread][Var1 - OpenMP] Total area: 534.336823
+[Main thread][Var1 - OpenMP] Total execution time: 10.000000 seconds
+
+
+
+-------
+
+./var1_openmp 1 0.0000005
+
+[Thread 1] Subinterval area: 534.333551
+
+
+-------
+
+[Main thread][Var1 - OpenMP] Tolerance: 0.000000
+[Main thread][Var1 - OpenMP] Number of threads: 1
+[Main thread][Var1 - OpenMP] Total area: 534.333551
+[Main thread][Var1 - OpenMP] Total execution time: 109.000000 seconds
+
+
+
+-------
+
+./var1_openmp 2 0.0000005
+
+[Thread 2] Subinterval area: 371.291776
+
+[Thread 1] Subinterval area: 163.041776
+
+
+-------
+
+[Main thread][Var1 - OpenMP] Tolerance: 0.000000
+[Main thread][Var1 - OpenMP] Number of threads: 2
+[Main thread][Var1 - OpenMP] Total area: 534.333551
+[Main thread][Var1 - OpenMP] Total execution time: 82.000000 seconds
+
+
+
+-------
+
+./var1_openmp 3 0.0000005
+
+[Thread 2] Subinterval area: 169.642008
+
+[Thread 1] Subinterval area: 89.790156
+
+[Thread 3] Subinterval area: 274.901267
+
+
+-------
+
+[Main thread][Var1 - OpenMP] Tolerance: 0.000000
+[Main thread][Var1 - OpenMP] Number of threads: 3
+[Main thread][Var1 - OpenMP] Total area: 534.333430
+[Main thread][Var1 - OpenMP] Total execution time: 85.000000 seconds
+
+
+
+-------
+
+./var1_openmp 4 0.0000005
+
+[Thread 2] Subinterval area: 102.192763
+
+[Thread 3] Subinterval area: 154.255263
+
+[Thread 1] Subinterval area: 60.849013
+
+[Thread 4] Subinterval area: 217.036513
+
+
+-------
+
+[Main thread][Var1 - OpenMP] Tolerance: 0.000000
+[Main thread][Var1 - OpenMP] Number of threads: 4
+[Main thread][Var1 - OpenMP] Total area: 534.333551
+[Main thread][Var1 - OpenMP] Total execution time: 48.000000 seconds
+
+
+
+-------
