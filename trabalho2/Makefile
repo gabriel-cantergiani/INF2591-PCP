@@ -74,18 +74,39 @@ all-v1-openmp-8: compile-v1-openmp run-v1-openmp-8
 all-v1-openmp: compile-v1-openmp all-v1-openmp-1 all-v1-openmp-2 all-v1-openmp-3 all-v1-openmp-4 all-v1-openmp-5 all-v1-openmp-6 all-v1-openmp-7 all-v1-openmp-8
 
 
-compile-v2:
+compile-v2-openmp:
 	gcc -Wall -fopenmp -o var2_openmp var2_openmp.c task.c
 
-run-v2:
+run-v2-openmp-1:
+	./var2_openmp 1 0.00005
+
+run-v2-openmp-2:
+	./var2_openmp 2 0.00005
+
+run-v2-openmp-3:
+	./var2_openmp 3 0.00005
+
+run-v2-openmp-4:
 	./var2_openmp 4 0.00005
 
-all-v2: compile-v2 run-v2
+run-v2-openmp-5:
+	./var2_openmp 1 0.0000005
 
-compile-v1:
-	gcc -Wall -fopenmp -o var1_openmp var1_openmp.c task.c
+run-v2-openmp-6:
+	./var2_openmp 2 0.0000005
 
-run-v1:
-	./var1_openmp 2 0.00005
+run-v2-openmp-7:
+	./var2_openmp 3 0.0000005
 
-all-v1: compile-v1 run-v1
+run-v2-openmp-8:
+	./var2_openmp 4 0.0000005
+
+all-v2-openmp-1: compile-v2-openmp run-v2-openmp-1
+all-v2-openmp-2: compile-v2-openmp run-v2-openmp-2
+all-v2-openmp-3: compile-v2-openmp run-v2-openmp-3
+all-v2-openmp-4: compile-v2-openmp run-v2-openmp-4
+all-v2-openmp-5: compile-v2-openmp run-v2-openmp-5
+all-v2-openmp-6: compile-v2-openmp run-v2-openmp-6
+all-v2-openmp-7: compile-v2-openmp run-v2-openmp-7
+all-v2-openmp-8: compile-v2-openmp run-v2-openmp-8
+all-v2-openmp: compile-v2-openmp all-v2-openmp-1 all-v2-openmp-2 all-v2-openmp-3 all-v2-openmp-4 all-v2-openmp-5 all-v2-openmp-6 all-v2-openmp-7 all-v2-openmp-8

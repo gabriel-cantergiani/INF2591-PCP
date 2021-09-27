@@ -34,7 +34,7 @@ double calculate_area_recursively (double left, double right, double (*func)(dou
 
 double parallel_task_omp (taskArgs * args) {
 
-    // int id = omp_get_thread_num();
+    int id = omp_get_thread_num();
     // printf("\n[Thread %d] executing task... Left: %f, Right: %f\n", id, args->left, args->right);
     double height = args->right - args->left;
     double totalArea = ( (args->func_ptr(args->left) + args->func_ptr(args->right)) * height )/ 2;
@@ -42,7 +42,8 @@ double parallel_task_omp (taskArgs * args) {
 
 
     double area = calculate_area_recursively(args->left, args->right, args->func_ptr, totalArea, args->tolerance);
-    printf("\n[Thread %d] Subinterval area: %f\n", args->thread_id, area);
+    // printf("\n[Thread %d] Subinterval area: %f\n", args->thread_id, area);
+    printf("\n[Thread %d--] Subinterval area: %f\n", id, area);
 
     return area;
 }
@@ -110,7 +111,7 @@ void executeTask(taskArgs * args) {
     else
         task = args;
 
-    // printf("\n[Thread %d] executing task... Left: %f, Right: %f\n", id, task->left, task->right);
+    printf("\n[Thread %d] executing task... Left: %f, Right: %f\n", id, task->left, task->right);
     double left = task->left;
     double right = task->right;
     double (*func)(double) = task->func_ptr;
@@ -126,7 +127,7 @@ void executeTask(taskArgs * args) {
     // printf("\n[Thread %d] Error=%f, tolerance=%f\n", id, error, task->tolerance);
 
     if (error < task->tolerance){
-        printf("\n[Thread %d] Task done with error below tolerance. Adding to totalArea: %f\n", id, totalArea);
+        // printf("\n[Thread %d] Task done with error below tolerance. Adding to totalArea: %f\n", id, totalArea);
         totalAreaSum += totalArea;
     }
     else {

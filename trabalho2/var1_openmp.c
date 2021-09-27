@@ -6,10 +6,11 @@
 
 #define a 5.0
 #define b 12.0
+#define FAKE_PROCESSING_LOOP_SIZE 10000000
 
 double quadrado (double x) {
     // FAKE PROCESSING...
-    fake_processing(x);
+    fake_processing(FAKE_PROCESSING_LOOP_SIZE);
     return x*x;
 }
 
