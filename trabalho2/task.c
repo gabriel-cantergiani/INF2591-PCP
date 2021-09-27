@@ -34,7 +34,7 @@ double parallel_task_omp (taskArgs * args) {
 
     double area = calculate_area_recursively(args->left, args->right, args->func_ptr, totalArea, args->tolerance);
     int id = omp_get_thread_num();
-    printf("\n[Thread %d] Subinterval area: %f\n", id, area);
+    printf("\n[Thread %d] Subinterval area (%f, %f): %f\n", id, args->left, args->right, area);
 
     return area;
 }
@@ -47,7 +47,7 @@ void * parallel_task_pthread (void * arg) {
     double totalArea = ( (args->func_ptr(args->left) + args->func_ptr(args->right)) * height )/ 2;
 
     double area = calculate_area_recursively(args->left, args->right, args->func_ptr, totalArea, args->tolerance);
-    printf("\n[Thread %d] Subinterval area: %f\n", args->thread_id, area);
+    printf("\n[Thread %d] Subinterval area (%f, %f): %f\n", args->thread_id, args->left, args->right, area);
 
     double * result = malloc(sizeof(double));
     *result = area;
@@ -69,19 +69,16 @@ void executeTask(taskArgs * args) {
 
     int id = omp_get_thread_num();
     taskArgs * task;
+
     if (args == NULL){
-        // printf("\n[Thread %d] No task received. Retrieving from queue...\n", id);
         #pragma omp critical
         task = RetiraTarefa();
-        if (task == NULL){
-            // printf("\n[Thread %d] ERROR Unable to retrieve trask from queue...\n", id);
+        if (task == NULL)
             return;
-        }
     }
     else
         task = args;
 
-    printf("\n[Thread %d] executing task... Left: %f, Right: %f\n", id, task->left, task->right);
     double left = task->left;
     double right = task->right;
     double (*func)(double) = task->func_ptr;
@@ -93,7 +90,7 @@ void executeTask(taskArgs * args) {
     double error = totalArea - (leftArea + rightArea);
 
     if (error < task->tolerance){
-        // printf("\n[Thread %d] Task done with error below tolerance. Adding to totalArea: %f\n", id, totalArea);
+        printf("\n[Thread %d] Task done with error below tolerance. Subinterval area (%f, %f): %f\n", id, left, right, totalArea);
         totalAreaSum += totalArea;
     }
     else {
