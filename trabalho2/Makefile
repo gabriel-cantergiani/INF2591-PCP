@@ -75,7 +75,7 @@ all-v1-openmp: compile-v1-openmp all-v1-openmp-1 all-v1-openmp-2 all-v1-openmp-3
 
 
 compile-v2-openmp:
-	gcc -Wall -fopenmp -o var2_openmp var2_openmp.c task.c
+	gcc -Wall -fopenmp -o var2_openmp var2_openmp.c task.c queue.c
 
 run-v2-openmp-1:
 	./var2_openmp 1 0.00005

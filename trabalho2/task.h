@@ -1,4 +1,4 @@
-
+#include "queue.h"
 
 typedef struct {
     int thread_id;
@@ -8,10 +8,8 @@ typedef struct {
     double tolerance;
 } taskArgs;
 
-taskArgs ** tasksQueue;
-int nextReadIndex;
-int nextWriteIndex;
-int queueMaxSize;
+// Global variables
+Queue * tasksQueue;
 double totalAreaSum;
 
 double parallel_task_omp (taskArgs * args);

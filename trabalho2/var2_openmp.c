@@ -35,16 +35,9 @@ int main (int argc, char * argv[]) {
     // DEFINICAO DA FUNCAO TESTADA
     double (*func)(double) = &quadrado;
 
-
     // Initialize global variables
     totalAreaSum = 0;
-    tasksQueue = (taskArgs **) malloc(sizeof(taskArgs *) * QUEUESIZE);
-    nextReadIndex = 0;
-    nextWriteIndex = 0;
-    queueMaxSize = QUEUESIZE - 1;
-
-    for (int i = 0; i < QUEUESIZE; i++)
-        tasksQueue[i] = NULL;
+    tasksQueue = createQueue();
 
     if (NUMINICIAL < total_num_threads)
         initial_num_tasks = total_num_threads;
@@ -52,7 +45,7 @@ int main (int argc, char * argv[]) {
     // Prepare values
     double height = (b-a)/initial_num_tasks;
 
-    // Create initial worker threads
+    // Create initial tasks
     for (int i = 0; i < initial_num_tasks; i++) {
 
         double left = a + height*i;
@@ -70,6 +63,7 @@ int main (int argc, char * argv[]) {
 
     omp_set_num_threads(total_num_threads);
 
+    // Start worker threads
     #pragma omp parallel for num_threads(total_num_threads) reduction (+: totalAreaSum)
     for (int i = 0; i < total_num_threads; i++) {
         executeTask(NULL);
