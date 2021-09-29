@@ -16,8 +16,6 @@ double parallel_task_omp (taskArgs * args);
 
 void * parallel_task_pthread (void * arg);
 
-void fake_processing(double x);
-
 void InsereTarefa(taskArgs * args);
 
 void executeTask(taskArgs * args);

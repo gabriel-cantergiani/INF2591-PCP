@@ -3,16 +3,7 @@
 #include <omp.h>
 #include <time.h>
 #include "task.h"
-
-#define a 5.0
-#define b 12.0
-#define FAKE_PROCESSING_LOOP_SIZE 10000000
-
-double quadrado (double x) {
-    // FAKE PROCESSING...
-    fake_processing(FAKE_PROCESSING_LOOP_SIZE);
-    return x*x;
-}
+#include "utils.h"
 
 int main (int argc, char * argv[]) {
 
@@ -30,18 +21,19 @@ int main (int argc, char * argv[]) {
     double tolerance = atof(argv[2]);
     double totalArea = 0;
 
-    // DEFINICAO DA FUNCAO TESTADA
-    double (*func)(double) = &quadrado;
+    double (*func)(double) = get_func();
+    double leftLimit = get_left_limit();
+    double rightLimit = get_right_limit();
 
     // Prepare values
-    double height = (b-a)/num_threads;
+    double height = (rightLimit-leftLimit)/num_threads;
     omp_set_num_threads(num_threads);
 
     // Create worker threads
     #pragma omp parallel for reduction (+: totalArea)
     for (int i = 0; i < num_threads; i++) {
 
-        double left = a + height*i;
+        double left = leftLimit + height*i;
         double right = left + height;
 
         int thread_id = i + 1;

@@ -3,16 +3,7 @@
 #include <pthread.h>
 #include <time.h>
 #include "task.h"
-
-#define a 5.0
-#define b 12.0
-#define FAKE_PROCESSING_LOOP_SIZE 10000000
-
-double quadrado (double x) {
-    // FAKE PROCESSING...
-    fake_processing(FAKE_PROCESSING_LOOP_SIZE);
-    return x*x;
-}
+#include "utils.h"
 
 int main (int argc, char * argv[]) {
 
@@ -28,17 +19,19 @@ int main (int argc, char * argv[]) {
     // Initialize variables
     int num_threads = atoi(argv[1]);
     double tolerance = atof(argv[2]);
-
-    double (*func)(double) = &quadrado;
     pthread_t worker_threads[num_threads];
 
+    double (*func)(double) = get_func();
+    double leftLimit = get_left_limit();
+    double rightLimit = get_right_limit();
+
     // Prepare values
-    double height = (b-a)/num_threads;
+    double height = (rightLimit - leftLimit)/num_threads;
 
     // Create worker threads
     for (int i = 0; i < num_threads; i++) {
 
-        double left = a + height*i;
+        double left = leftLimit + height*i;
         double right = left + height;
 
         int thread_id = i + 1;

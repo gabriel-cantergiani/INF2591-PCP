@@ -3,23 +3,12 @@
 #include <omp.h>
 #include <time.h>
 #include "task.h"
-
-#define a 5.0
-#define b 12.0
-#define NUMINICIAL 2
-#define QUEUESIZE 10000
-#define FAKE_PROCESSING_LOOP_SIZE 10000000
-
-double quadrado (double x) {
-    // FAKE PROCESSING...
-    fake_processing(FAKE_PROCESSING_LOOP_SIZE);
-    return x*x;
-}
+#include "utils.h"
 
 int main (int argc, char * argv[]) {
 
-    if (argc < 3) {
-        printf("Usage: ./var1_openmp <num_threads> <tolerance>\n");
+    if (argc < 4) {
+        printf("Usage: ./var1_openmp <num_threads> <tolerance> <num_initial_tasks>\n");
         exit(1);
     }
 
@@ -30,25 +19,26 @@ int main (int argc, char * argv[]) {
     // Initializevariables
     int total_num_threads = atoi(argv[1]);
     double tolerance = atof(argv[2]);
-    int initial_num_tasks = NUMINICIAL;
+    int initial_num_tasks = atoi(argv[3]);
 
-    // DEFINICAO DA FUNCAO TESTADA
-    double (*func)(double) = &quadrado;
+    double (*func)(double) = get_func();
+    double leftLimit = get_left_limit();
+    double rightLimit = get_right_limit();
 
     // Initialize global variables
     totalAreaSum = 0;
     tasksQueue = createQueue();
 
-    if (NUMINICIAL < total_num_threads)
+    if (initial_num_tasks < total_num_threads)
         initial_num_tasks = total_num_threads;
 
     // Prepare values
-    double height = (b-a)/initial_num_tasks;
+    double height = (rightLimit-leftLimit)/initial_num_tasks;
 
     // Create initial tasks
     for (int i = 0; i < initial_num_tasks; i++) {
 
-        double left = a + height*i;
+        double left = leftLimit + height*i;
         double right = left + height;
 
         int thread_id = i + 1;

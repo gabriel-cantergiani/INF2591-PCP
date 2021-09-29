@@ -1,16 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include <omp.h>
 #include "task.h"
-
-void fake_processing(double x) {
-    for (int i=0; i< x; i++) {
-        double k = x*x*x;
-        double p = k*500.50005;
-        double m = p/(x*x);
-        k = m;
-    }
-}
 
 double calculate_area_recursively (double left, double right, double (*func)(double), double totalArea, double tolerance) {
 
@@ -18,7 +10,11 @@ double calculate_area_recursively (double left, double right, double (*func)(dou
     double middle = (left+right)/2;
     double leftArea = ( (func(left) + func(middle)) * height )/ 2;
     double rightArea = ( (func(middle) + func(right)) * height )/ 2;
-    double error = totalArea - (leftArea + rightArea);
+    double error = fabs(totalArea - (leftArea + rightArea));
+
+    printf("\n[Thread] func(%f): %f, func(%f):%f\n", left, func(left), right, func(right));
+    printf("\n[Thread] Interval = (%f, %f): TotalArea: %f, leftArea:%f, rightArea: %f\n", left, right, totalArea, leftArea, rightArea);
+    printf("\n[Thread] Error: %f, Tolerance: %f\n", error, tolerance);
 
     if (error < tolerance)
         return totalArea;
@@ -87,7 +83,7 @@ void executeTask(taskArgs * args) {
     double totalArea = ( (func(left) + func(right)) * (right - left) )/ 2;
     double leftArea = ( (func(left) + func(middle)) * height )/ 2;
     double rightArea = ( (func(middle) + func(right)) * height )/ 2;
-    double error = totalArea - (leftArea + rightArea);
+    double error = fabs(totalArea - (leftArea + rightArea));
 
     if (error < task->tolerance){
         printf("\n[Thread %d] Task done with error below tolerance. Subinterval area (%f, %f): %f\n", id, left, right, totalArea);
