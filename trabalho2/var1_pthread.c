@@ -46,7 +46,7 @@ int main (int argc, char * argv[]) {
         pthread_create(&p, NULL, parallel_task_pthread, args);
         
         worker_threads[i] = p;
-        printf("[Main thread] Worker thread %d created\n", thread_id);
+        // printf("[Main thread] Worker thread %d created\n", thread_id);
     }
 
     double totalArea = 0;
@@ -55,14 +55,14 @@ int main (int argc, char * argv[]) {
     for (int i = 0; i < num_threads; i++) {
         void * result;
         pthread_join(worker_threads[i], &result);
-        printf("[Main thread] Worker thread %d finished with subinterval area of: %f\n", i+1, *(double*)result);
+        // printf("[Main thread] Worker thread %d finished with subinterval area of: %f\n", i+1, *(double*)result);
         totalArea += *(double*)result;
     }
 
     end = time(NULL);
 
     printf("\n\n-------\n\n");
-    printf("[Main thread][Var1 - Pthread] Tolerance: %f\n", tolerance);
+    printf("[Main thread][Var1 - Pthread] Tolerance: %.10f\n", tolerance);
     printf("[Main thread][Var1 - Pthread] Left limit: %f , Right Limit: %f\n", leftLimit, rightLimit);
     printf("[Main thread][Var1 - Pthread] Number of threads: %d\n", num_threads);
     printf("[Main thread][Var1 - Pthread] Total area: %f\n", totalArea);

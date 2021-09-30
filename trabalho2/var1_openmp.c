@@ -53,7 +53,7 @@ int main (int argc, char * argv[]) {
     end = time(NULL);
 
     printf("\n\n-------\n\n");
-    printf("[Main thread][Var1 - OpenMP] Tolerance: %f\n", tolerance);
+    printf("[Main thread][Var1 - OpenMP] Tolerance: %.10f\n", tolerance);
     printf("[Main thread][Var1 - OpenMP] Left limit: %f , Right Limit: %f\n", leftLimit, rightLimit);
     printf("[Main thread][Var1 - OpenMP] Number of threads: %d\n", num_threads);
     printf("[Main thread][Var1 - OpenMP] Total area: %f\n", totalArea);
