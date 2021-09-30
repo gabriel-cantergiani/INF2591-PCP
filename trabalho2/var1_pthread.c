@@ -63,6 +63,7 @@ int main (int argc, char * argv[]) {
 
     printf("\n\n-------\n\n");
     printf("[Main thread][Var1 - Pthread] Tolerance: %f\n", tolerance);
+    printf("[Main thread][Var1 - Pthread] Left limit: %f , Right Limit: %f\n", leftLimit, rightLimit);
     printf("[Main thread][Var1 - Pthread] Number of threads: %d\n", num_threads);
     printf("[Main thread][Var1 - Pthread] Total area: %f\n", totalArea);
     printf("[Main thread][Var1 - Pthread] Total execution time: %f seconds\n", difftime(end, begin));

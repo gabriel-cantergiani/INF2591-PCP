@@ -63,10 +63,11 @@ int main (int argc, char * argv[]) {
 
     printf("\n\n-------\n\n");
     printf("[Main thread][Var2 - OpenMP] Tolerance: %f\n", tolerance);
+    printf("[Main thread][Var2 - OpenMP] Left limit: %f , Right Limit: %f\n", leftLimit, rightLimit);
     printf("[Main thread][Var2 - OpenMP] Initial number of tasks: %d\n", initial_num_tasks);
     printf("[Main thread][Var2 - OpenMP] Number of threads: %d\n", total_num_threads);
     printf("[Main thread][Var2 - OpenMP] Total area: %f\n", totalAreaSum);
-    printf("[Main thread][Var2 - OpenMP] Total execution time: %f seconds\n\n", difftime(end, begin));
+    printf("[Main thread][Var2 - OpenMP] Total execution time: %f seconds", difftime(end, begin));
     printf("\n\n-------\n\n");
 
 }

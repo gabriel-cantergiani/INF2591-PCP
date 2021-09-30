@@ -1,8 +1,8 @@
 #include "utils.h"
 #include <math.h>
 
-#define leftLimit -10
-#define rightLimit 10
+#define leftLimit -100
+#define rightLimit 100
 
 #define FAKE_PROCESSING_LOOP_SIZE 10000000
 

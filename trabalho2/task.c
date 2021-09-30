@@ -12,10 +12,6 @@ double calculate_area_recursively (double left, double right, double (*func)(dou
     double rightArea = ( (func(middle) + func(right)) * height )/ 2;
     double error = fabs(totalArea - (leftArea + rightArea));
 
-    printf("\n[Thread] func(%f): %f, func(%f):%f\n", left, func(left), right, func(right));
-    printf("\n[Thread] Interval = (%f, %f): TotalArea: %f, leftArea:%f, rightArea: %f\n", left, right, totalArea, leftArea, rightArea);
-    printf("\n[Thread] Error: %f, Tolerance: %f\n", error, tolerance);
-
     if (error < tolerance)
         return totalArea;
     else
@@ -29,8 +25,8 @@ double parallel_task_omp (taskArgs * args) {
 
 
     double area = calculate_area_recursively(args->left, args->right, args->func_ptr, totalArea, args->tolerance);
-    int id = omp_get_thread_num();
-    printf("\n[Thread %d] Subinterval area (%f, %f): %f\n", id, args->left, args->right, area);
+    // int id = omp_get_thread_num();
+    // printf("\n[Thread %d] Subinterval area (%f, %f): %f\n", id, args->left, args->right, area);
 
     return area;
 }
@@ -43,7 +39,7 @@ void * parallel_task_pthread (void * arg) {
     double totalArea = ( (args->func_ptr(args->left) + args->func_ptr(args->right)) * height )/ 2;
 
     double area = calculate_area_recursively(args->left, args->right, args->func_ptr, totalArea, args->tolerance);
-    printf("\n[Thread %d] Subinterval area (%f, %f): %f\n", args->thread_id, args->left, args->right, area);
+    // printf("\n[Thread %d] Subinterval area (%f, %f): %f\n", args->thread_id, args->left, args->right, area);
 
     double * result = malloc(sizeof(double));
     *result = area;
@@ -86,7 +82,7 @@ void executeTask(taskArgs * args) {
     double error = fabs(totalArea - (leftArea + rightArea));
 
     if (error < task->tolerance){
-        printf("\n[Thread %d] Task done with error below tolerance. Subinterval area (%f, %f): %f\n", id, left, right, totalArea);
+        // printf("\n[Thread %d] Task done with error below tolerance. Subinterval area (%f, %f): %f\n", id, left, right, totalArea);
         totalAreaSum += totalArea;
     }
     else {
