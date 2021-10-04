@@ -1,0 +1,112 @@
+gcc -Wall -fopenmp -o var2_openmp var2_openmp.c task.c queue.c utils.c -lm
+./var2_openmp 1 0.00001 2
+
+
+-------
+
+[Main thread][Var2 - OpenMP] Tolerance: 0.0000100000
+[Main thread][Var2 - OpenMP] Left limit: -100.000000 , Right Limit: 100.000000
+[Main thread][Var2 - OpenMP] Initial number of tasks: 2
+[Main thread][Var2 - OpenMP] Number of threads: 1
+[Main thread][Var2 - OpenMP] Total area: 5.549850
+[Main thread][Var2 - OpenMP] Total execution time: 0.687500 seconds
+
+-------
+
+./var2_openmp 2 0.00001 2
+
+
+-------
+
+[Main thread][Var2 - OpenMP] Tolerance: 0.0000100000
+[Main thread][Var2 - OpenMP] Left limit: -100.000000 , Right Limit: 100.000000
+[Main thread][Var2 - OpenMP] Initial number of tasks: 2
+[Main thread][Var2 - OpenMP] Number of threads: 2
+[Main thread][Var2 - OpenMP] Total area: 5.549850
+[Main thread][Var2 - OpenMP] Total execution time: 0.687500 seconds
+
+-------
+
+./var2_openmp 3 0.00001 2
+
+
+-------
+
+[Main thread][Var2 - OpenMP] Tolerance: 0.0000100000
+[Main thread][Var2 - OpenMP] Left limit: -100.000000 , Right Limit: 100.000000
+[Main thread][Var2 - OpenMP] Initial number of tasks: 3
+[Main thread][Var2 - OpenMP] Number of threads: 3
+[Main thread][Var2 - OpenMP] Total area: 8.087676
+[Main thread][Var2 - OpenMP] Total execution time: 6.062500 seconds
+
+-------
+
+./var2_openmp 4 0.00001 2
+
+
+-------
+
+[Main thread][Var2 - OpenMP] Tolerance: 0.0000100000
+[Main thread][Var2 - OpenMP] Left limit: -100.000000 , Right Limit: 100.000000
+[Main thread][Var2 - OpenMP] Initial number of tasks: 4
+[Main thread][Var2 - OpenMP] Number of threads: 4
+[Main thread][Var2 - OpenMP] Total area: 5.549850
+[Main thread][Var2 - OpenMP] Total execution time: 0.984375 seconds
+
+-------
+
+./var2_openmp 1 0.00000001 2
+
+
+-------
+
+[Main thread][Var2 - OpenMP] Tolerance: 0.0000000100
+[Main thread][Var2 - OpenMP] Left limit: -100.000000 , Right Limit: 100.000000
+[Main thread][Var2 - OpenMP] Initial number of tasks: 2
+[Main thread][Var2 - OpenMP] Number of threads: 1
+[Main thread][Var2 - OpenMP] Total area: 8.093285
+[Main thread][Var2 - OpenMP] Total execution time: 43.671875 seconds
+
+-------
+
+./var2_openmp 2 0.00000001 2
+
+
+-------
+
+[Main thread][Var2 - OpenMP] Tolerance: 0.0000000100
+[Main thread][Var2 - OpenMP] Left limit: -100.000000 , Right Limit: 100.000000
+[Main thread][Var2 - OpenMP] Initial number of tasks: 2
+[Main thread][Var2 - OpenMP] Number of threads: 2
+[Main thread][Var2 - OpenMP] Total area: 8.093106
+[Main thread][Var2 - OpenMP] Total execution time: 50.953125 seconds
+
+-------
+
+./var2_openmp 3 0.00000001 2
+
+
+-------
+
+[Main thread][Var2 - OpenMP] Tolerance: 0.0000000100
+[Main thread][Var2 - OpenMP] Left limit: -100.000000 , Right Limit: 100.000000
+[Main thread][Var2 - OpenMP] Initial number of tasks: 3
+[Main thread][Var2 - OpenMP] Number of threads: 3
+[Main thread][Var2 - OpenMP] Total area: 8.093285
+[Main thread][Var2 - OpenMP] Total execution time: 58.640625 seconds
+
+-------
+
+./var2_openmp 4 0.00000001 2
+
+
+-------
+
+[Main thread][Var2 - OpenMP] Tolerance: 0.0000000100
+[Main thread][Var2 - OpenMP] Left limit: -100.000000 , Right Limit: 100.000000
+[Main thread][Var2 - OpenMP] Initial number of tasks: 4
+[Main thread][Var2 - OpenMP] Number of threads: 4
+[Main thread][Var2 - OpenMP] Total area: 8.093285
+[Main thread][Var2 - OpenMP] Total execution time: 64.281250 seconds
+
+-------

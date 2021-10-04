@@ -12,9 +12,7 @@ int main (int argc, char * argv[]) {
         exit(1);
     }
 
-    time_t begin, end;
-     
-    begin = time(NULL);
+    clock_t begin = clock();
 
     // Initializevariables
     int total_num_threads = atoi(argv[1]);
@@ -59,7 +57,7 @@ int main (int argc, char * argv[]) {
         executeTask(NULL);
     }
 
-    end = time(NULL);
+    clock_t end = clock();
 
     printf("\n\n-------\n\n");
     printf("[Main thread][Var2 - OpenMP] Tolerance: %.10f\n", tolerance);
@@ -67,7 +65,7 @@ int main (int argc, char * argv[]) {
     printf("[Main thread][Var2 - OpenMP] Initial number of tasks: %d\n", initial_num_tasks);
     printf("[Main thread][Var2 - OpenMP] Number of threads: %d\n", total_num_threads);
     printf("[Main thread][Var2 - OpenMP] Total area: %f\n", totalAreaSum);
-    printf("[Main thread][Var2 - OpenMP] Total execution time: %f seconds", difftime(end, begin));
+    printf("[Main thread][Var2 - OpenMP] Total execution time: %f seconds", (double)(end - begin) / CLOCKS_PER_SEC);
     printf("\n\n-------\n\n");
 
 }

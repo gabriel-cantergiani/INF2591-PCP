@@ -12,9 +12,7 @@ int main (int argc, char * argv[]) {
         exit(1);
     }
 
-    time_t begin, end;
-     
-    begin = time(NULL);
+    clock_t begin = clock();
 
     // Initialize variables
     int num_threads = atoi(argv[1]);
@@ -59,14 +57,14 @@ int main (int argc, char * argv[]) {
         totalArea += *(double*)result;
     }
 
-    end = time(NULL);
+    clock_t end = clock();
 
     printf("\n\n-------\n\n");
     printf("[Main thread][Var1 - Pthread] Tolerance: %.10f\n", tolerance);
     printf("[Main thread][Var1 - Pthread] Left limit: %f , Right Limit: %f\n", leftLimit, rightLimit);
     printf("[Main thread][Var1 - Pthread] Number of threads: %d\n", num_threads);
     printf("[Main thread][Var1 - Pthread] Total area: %f\n", totalArea);
-    printf("[Main thread][Var1 - Pthread] Total execution time: %f seconds\n", difftime(end, begin));
+    printf("[Main thread][Var1 - Pthread] Total execution time: %f seconds\n", (double)(end - begin) / CLOCKS_PER_SEC);
     printf("\n\n-------\n\n");
 
 }
