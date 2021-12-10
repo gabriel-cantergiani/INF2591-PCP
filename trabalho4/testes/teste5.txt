@@ -1,0 +1,165 @@
+INF2591
+Professora: Noemi Rodriguez
+Gabriel Cantergiani
+
+Broadcast entre threads usando um buffer compartilhado e canal de comunicação entre threads em Golang
+
+5) O teste a seguir se propõe a ser um pouco maior, na qual, pode-se notar bem o revezamento de produção dos produtores, o preenchimento do buffer circular e o consumo por parte dos produtores. Neste caso, o total de itens consumido foi 25(P*I).
+
+Buffer de tamanho 10
+5 Produtores
+3 Consumidores
+5 Itens a serem produzidos
+
+------------------------------------------
+
+Parameters: N=10, P=5, C=3, I=5
+[1639102647209][MAIN] Starting broker...
+[1639102647209][MAIN] Creating consumers...
+[1639102647209][MAIN] Creating producers...
+[1639102647209][CONSUMER 1] Consumer starting...        
+[1639102647209][CONSUMER 2] Consumer starting...        
+[1639102647209][MAIN] waiting for producers to finish...
+[1639102647209][PRODUCER 5]Producer starting...
+[1639102647209][PRODUCER 1]Producer starting...
+[1639102647209][PRODUCER 2]Producer starting...
+[1639102647209][PRODUCER 3]Producer starting...
+[1639102647209][PRODUCER 4]Producer starting...
+[1639102647209][CONSUMER 3] Consumer starting...        
+[1639102648219][BROKER] received new item 0. Broadcasting....
+[1639102648219][BROKER] received new item 0. Broadcasting....
+[1639102648220][BROKER] received new item 0. Broadcasting....
+[1639102648220][BROKER] received new item 0. Broadcasting....
+[1639102648220][BROKER] received new item 0. Broadcasting....
+[1639102648219][PRODUCER 2] Sent item 0
+[1639102648219][CONSUMER 3] Received item 0
+[1639102648221][CONSUMER 3] Received item 0
+[1639102648221][CONSUMER 3] Received item 0
+[1639102648221][CONSUMER 3] Received item 0
+[1639102648221][CONSUMER 3] Received item 0
+[1639102648219][PRODUCER 1] Sent item 0
+[1639102648219][PRODUCER 3] Sent item 0
+[1639102648219][CONSUMER 1] Received item 0
+[1639102648222][CONSUMER 1] Received item 0
+[1639102648222][CONSUMER 1] Received item 0
+[1639102648223][CONSUMER 1] Received item 0
+[1639102648223][CONSUMER 1] Received item 0
+[1639102648219][CONSUMER 2] Received item 0
+[1639102648224][CONSUMER 2] Received item 0
+[1639102648224][CONSUMER 2] Received item 0
+[1639102648224][CONSUMER 2] Received item 0
+[1639102648224][CONSUMER 2] Received item 0
+[1639102648219][PRODUCER 5] Sent item 0
+[1639102648219][PRODUCER 4] Sent item 0
+[1639102648725][BROKER] received new item 1. Broadcasting....
+[1639102648725][CONSUMER 3] Received item 1
+[1639102648725][PRODUCER 1] Sent item 1
+[1639102648725][PRODUCER 2] Sent item 1
+[1639102648725][PRODUCER 3] Sent item 1
+[1639102648725][CONSUMER 2] Received item 1
+[1639102648725][CONSUMER 1] Received item 1
+[1639102648725][PRODUCER 5] Sent item 1
+[1639102648725][BROKER] received new item 1. Broadcasting....
+[1639102648728][BROKER] received new item 1. Broadcasting....
+[1639102648729][BROKER] received new item 1. Broadcasting....
+[1639102648729][BROKER] received new item 1. Broadcasting....
+[1639102648726][PRODUCER 4] Sent item 1
+[1639102648728][CONSUMER 1] Received item 1
+[1639102648730][CONSUMER 1] Received item 1
+[1639102648730][CONSUMER 1] Received item 1
+[1639102648730][CONSUMER 1] Received item 1
+[1639102648728][CONSUMER 2] Received item 1
+[1639102648731][CONSUMER 2] Received item 1
+[1639102648731][CONSUMER 2] Received item 1
+[1639102648732][CONSUMER 2] Received item 1
+[1639102648728][CONSUMER 3] Received item 1
+[1639102648732][CONSUMER 3] Received item 1
+[1639102648733][CONSUMER 3] Received item 1
+[1639102648733][CONSUMER 3] Received item 1
+[1639102649231][BROKER] received new item 2. Broadcasting....
+[1639102649232][CONSUMER 2] Received item 2
+[1639102649231][PRODUCER 4] Sent item 2
+[1639102649231][PRODUCER 1] Sent item 2
+[1639102649231][PRODUCER 2] Sent item 2
+[1639102649231][PRODUCER 5] Sent item 2
+[1639102649232][BROKER] received new item 2. Broadcasting....
+[1639102649233][CONSUMER 2] Received item 2
+[1639102649232][CONSUMER 3] Received item 2
+[1639102649234][CONSUMER 3] Received item 2
+[1639102649233][BROKER] received new item 2. Broadcasting....
+[1639102649235][BROKER] received new item 2. Broadcasting....
+[1639102649235][BROKER] received new item 2. Broadcasting....
+[1639102649235][CONSUMER 2] Received item 2
+[1639102649236][CONSUMER 2] Received item 2
+[1639102649236][CONSUMER 2] Received item 2
+[1639102649232][CONSUMER 1] Received item 2
+[1639102649236][CONSUMER 1] Received item 2
+[1639102649237][CONSUMER 1] Received item 2
+[1639102649237][CONSUMER 1] Received item 2
+[1639102649237][CONSUMER 1] Received item 2
+[1639102649231][PRODUCER 3] Sent item 2
+[1639102649235][CONSUMER 3] Received item 2
+[1639102649238][CONSUMER 3] Received item 2
+[1639102649238][CONSUMER 3] Received item 2
+[1639102649734][BROKER] received new item 3. Broadcasting....
+[1639102649734][BROKER] received new item 3. Broadcasting....
+[1639102649734][BROKER] received new item 3. Broadcasting....
+[1639102649734][BROKER] received new item 3. Broadcasting....
+[1639102649734][PRODUCER 5] Sent item 3
+[1639102649734][CONSUMER 2] Received item 3
+[1639102649735][CONSUMER 2] Received item 3
+[1639102649736][CONSUMER 2] Received item 3
+[1639102649736][CONSUMER 2] Received item 3
+[1639102649734][PRODUCER 1] Sent item 3
+[1639102649734][PRODUCER 2] Sent item 3
+[1639102649734][CONSUMER 3] Received item 3
+[1639102649737][CONSUMER 3] Received item 3
+[1639102649737][CONSUMER 3] Received item 3
+[1639102649737][CONSUMER 3] Received item 3
+[1639102649734][CONSUMER 1] Received item 3
+[1639102649738][CONSUMER 1] Received item 3
+[1639102649738][CONSUMER 1] Received item 3
+[1639102649738][CONSUMER 1] Received item 3
+[1639102649734][PRODUCER 4] Sent item 3
+[1639102649738][PRODUCER 3] Sent item 3
+[1639102649738][BROKER] received new item 3. Broadcasting....
+[1639102649738][CONSUMER 3] Received item 3
+[1639102649738][CONSUMER 2] Received item 3
+[1639102649738][CONSUMER 1] Received item 3
+[1639102650240][PRODUCER 3] Sent item 4
+[1639102650240][BROKER] received new item 4. Broadcasting....
+[1639102650240][CONSUMER 3] Received item 4
+[1639102650240][PRODUCER 4] Sent item 4
+[1639102650240][PRODUCER 2] Sent item 4
+[1639102650240][PRODUCER 1] Sent item 4
+[1639102650240][BROKER] received new item 4. Broadcasting....
+[1639102650242][BROKER] received new item 4. Broadcasting....
+[1639102650243][BROKER] received new item 4. Broadcasting....
+[1639102650243][BROKER] received new item 4. Broadcasting....
+[1639102650242][CONSUMER 3] Received item 4
+[1639102650243][CONSUMER 3] Received item 4
+[1639102650243][CONSUMER 3] Received item 4
+[1639102650244][CONSUMER 3] Received item 4
+[1639102650240][PRODUCER 5] Sent item 4
+[1639102650240][CONSUMER 2] Received item 4
+[1639102650244][CONSUMER 2] Received item 4
+[1639102650244][CONSUMER 2] Received item 4
+[1639102650245][CONSUMER 2] Received item 4
+[1639102650245][CONSUMER 2] Received item 4
+[1639102650240][CONSUMER 1] Received item 4
+[1639102650246][CONSUMER 1] Received item 4
+[1639102650246][CONSUMER 1] Received item 4
+[1639102650246][CONSUMER 1] Received item 4
+[1639102650246][CONSUMER 1] Received item 4
+[1639102650746][PRODUCER 3] Finished producing....
+[1639102650746][PRODUCER 1] Finished producing....
+[1639102650746][PRODUCER 4] Finished producing....
+[1639102650746][PRODUCER 2] Finished producing....
+[1639102650746][PRODUCER 5] Finished producing....
+[1639102650747][BROKER] Received done signal...
+[1639102650747][CONSUMER 2] Received broker done. Closing channel
+[1639102650748][CONSUMER 2] Consumer finishing...
+[1639102650747][CONSUMER 1] Received broker done. Closing channel
+[1639102650748][CONSUMER 1] Consumer finishing...
+[1639102650747][CONSUMER 3] Received broker done. Closing channel
+[1639102650749][CONSUMER 3] Consumer finishing...

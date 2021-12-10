@@ -1,0 +1,867 @@
+INF2591
+Professora: Noemi Rodriguez
+Gabriel Cantergiani
+
+Broadcast entre threads usando um buffer compartilhado e canal de comunicação entre threads em Golang
+
+6) Neste teste, foi utilizado um número bem alto de produtores, com um número pequeno de consumidores. Logo, é possível observar o gargalo no consumo de itens em relação a produção. 
+
+Buffer de tamanho 5
+20 Produtores
+2 Consumidores
+10 Itens a serem produzidos
+
+---------------------------------------------------
+
+Parameters: N=5, P=20, C=2, I=10
+[1639102709446][MAIN] Starting broker...
+[1639102709448][MAIN] Creating consumers...
+[1639102709448][MAIN] Creating producers...
+[1639102709448][CONSUMER 1] Consumer starting...        
+[1639102709448][PRODUCER 20]Producer starting...        
+[1639102709448][MAIN] waiting for producers to finish...
+[1639102709449][PRODUCER 14]Producer starting...        
+[1639102709449][PRODUCER 10]Producer starting...        
+[1639102709449][PRODUCER 11]Producer starting...        
+[1639102709449][PRODUCER 12]Producer starting...        
+[1639102709449][PRODUCER 13]Producer starting...        
+[1639102709449][PRODUCER 17]Producer starting...        
+[1639102709449][PRODUCER 15]Producer starting...        
+[1639102709449][PRODUCER 16]Producer starting...        
+[1639102709449][PRODUCER 4]Producer starting...
+[1639102709448][CONSUMER 2] Consumer starting...        
+[1639102709449][PRODUCER 1]Producer starting...
+[1639102709449][PRODUCER 2]Producer starting...
+[1639102709449][PRODUCER 3]Producer starting...
+[1639102709449][PRODUCER 6]Producer starting...
+[1639102709449][PRODUCER 5]Producer starting...
+[1639102709449][PRODUCER 18]Producer starting...        
+[1639102709449][PRODUCER 7]Producer starting...
+[1639102709449][PRODUCER 8]Producer starting...
+[1639102709449][PRODUCER 19]Producer starting...
+[1639102709449][PRODUCER 9]Producer starting...
+[1639102710452][PRODUCER 4] Sent item 0
+[1639102710452][BROKER] received new item 0. Broadcasting....
+[1639102710453][BROKER] received new item 0. Broadcasting....
+[1639102710453][BROKER] received new item 0. Broadcasting....
+[1639102710454][BROKER] received new item 0. Broadcasting....
+[1639102710454][BROKER] received new item 0. Broadcasting....
+[1639102710455][BROKER] received new item 0. Broadcasting....
+[1639102710453][CONSUMER 2] Received item 0
+[1639102710456][CONSUMER 2] Received item 0
+[1639102710456][CONSUMER 2] Received item 0
+[1639102710456][CONSUMER 2] Received item 0
+[1639102710456][CONSUMER 2] Received item 0
+[1639102710457][CONSUMER 2] Received item 0
+[1639102710452][PRODUCER 2] Sent item 0
+[1639102710454][PRODUCER 10] Sent item 0
+[1639102710452][PRODUCER 11] Sent item 0
+[1639102710454][PRODUCER 13] Sent item 0
+[1639102710452][PRODUCER 17] Sent item 0
+[1639102710455][PRODUCER 15] Sent item 0
+[1639102710455][BROKER] received new item 0. Broadcasting....
+[1639102710455][PRODUCER 12] Sent item 0
+[1639102710452][PRODUCER 3] Sent item 0
+[1639102710453][PRODUCER 20] Sent item 0
+[1639102710453][CONSUMER 1] Received item 0
+[1639102710460][CONSUMER 1] Received item 0
+[1639102710460][CONSUMER 1] Received item 0
+[1639102710461][CONSUMER 1] Received item 0
+[1639102710461][CONSUMER 1] Received item 0
+[1639102710461][CONSUMER 1] Received item 0
+[1639102710462][CONSUMER 1] Received item 0
+[1639102710453][PRODUCER 14] Sent item 0
+[1639102710452][PRODUCER 1] Sent item 0
+[1639102710460][CONSUMER 2] Received item 0
+[1639102710460][BROKER] received new item 0. Broadcasting....
+[1639102710464][CONSUMER 2] Received item 0
+[1639102710464][BROKER] received new item 0. Broadcasting....
+[1639102710464][BROKER] received new item 0. Broadcasting....
+[1639102710464][BROKER] received new item 0. Broadcasting....
+[1639102710465][BROKER] received new item 0. Broadcasting....
+[1639102710465][BROKER] received new item 0. Broadcasting....
+[1639102710466][BROKER] received new item 0. Broadcasting....
+[1639102710464][PRODUCER 6] Sent item 0
+[1639102710464][PRODUCER 7] Sent item 0
+[1639102710464][PRODUCER 5] Sent item 0
+[1639102710460][PRODUCER 16] Sent item 0
+[1639102710465][PRODUCER 18] Sent item 0
+[1639102710464][CONSUMER 2] Received item 0
+[1639102710469][CONSUMER 2] Received item 0
+[1639102710470][CONSUMER 2] Received item 0
+[1639102710470][CONSUMER 2] Received item 0
+[1639102710471][CONSUMER 2] Received item 0
+[1639102710464][CONSUMER 1] Received item 0
+[1639102710471][CONSUMER 1] Received item 0
+[1639102710472][CONSUMER 1] Received item 0
+[1639102710472][CONSUMER 1] Received item 0
+[1639102710472][CONSUMER 1] Received item 0
+[1639102710473][CONSUMER 1] Received item 0
+[1639102710473][CONSUMER 1] Received item 0
+[1639102710465][PRODUCER 19] Sent item 0
+[1639102710467][PRODUCER 8] Sent item 0
+[1639102710471][BROKER] received new item 0. Broadcasting....
+[1639102710474][BROKER] received new item 0. Broadcasting....
+[1639102710474][BROKER] received new item 0. Broadcasting....
+[1639102710474][BROKER] received new item 0. Broadcasting....
+[1639102710474][BROKER] received new item 0. Broadcasting....
+[1639102710475][BROKER] received new item 0. Broadcasting....
+[1639102710474][CONSUMER 1] Received item 0
+[1639102710475][CONSUMER 1] Received item 0
+[1639102710475][CONSUMER 1] Received item 0
+[1639102710476][CONSUMER 1] Received item 0
+[1639102710476][CONSUMER 1] Received item 0
+[1639102710476][CONSUMER 1] Received item 0
+[1639102710472][PRODUCER 9] Sent item 0
+[1639102710471][CONSUMER 2] Received item 0
+[1639102710477][CONSUMER 2] Received item 0
+[1639102710477][CONSUMER 2] Received item 0
+[1639102710478][CONSUMER 2] Received item 0
+[1639102710478][CONSUMER 2] Received item 0
+[1639102710478][CONSUMER 2] Received item 0
+[1639102710478][CONSUMER 2] Received item 0
+[1639102710954][PRODUCER 4] Sent item 1
+[1639102710954][BROKER] received new item 1. Broadcasting....
+[1639102710954][CONSUMER 1] Received item 1
+[1639102710954][CONSUMER 2] Received item 1
+[1639102710968][PRODUCER 7] Sent item 1
+[1639102710968][BROKER] received new item 1. Broadcasting....
+[1639102710968][BROKER] received new item 1. Broadcasting....
+[1639102710968][BROKER] received new item 1. Broadcasting....
+[1639102710969][BROKER] received new item 1. Broadcasting....
+[1639102710969][BROKER] received new item 1. Broadcasting....
+[1639102710970][BROKER] received new item 1. Broadcasting....
+[1639102710970][BROKER] received new item 1. Broadcasting....
+[1639102710968][PRODUCER 1] Sent item 1
+[1639102710968][CONSUMER 2] Received item 1
+[1639102710971][CONSUMER 2] Received item 1
+[1639102710972][CONSUMER 2] Received item 1
+[1639102710968][PRODUCER 15] Sent item 1
+[1639102710968][PRODUCER 6] Sent item 1
+[1639102710969][PRODUCER 12] Sent item 1
+[1639102710968][PRODUCER 20] Sent item 1
+[1639102710969][PRODUCER 3] Sent item 1
+[1639102710968][PRODUCER 13] Sent item 1
+[1639102710970][PRODUCER 2] Sent item 1
+[1639102710968][CONSUMER 1] Received item 1
+[1639102710974][CONSUMER 1] Received item 1
+[1639102710975][CONSUMER 1] Received item 1
+[1639102710975][CONSUMER 1] Received item 1
+[1639102710975][CONSUMER 1] Received item 1
+[1639102710975][CONSUMER 1] Received item 1
+[1639102710976][CONSUMER 1] Received item 1
+[1639102710974][PRODUCER 10] Sent item 1
+[1639102710968][PRODUCER 17] Sent item 1
+[1639102710968][PRODUCER 14] Sent item 1
+[1639102710972][CONSUMER 2] Received item 1
+[1639102710977][CONSUMER 2] Received item 1
+[1639102710977][CONSUMER 2] Received item 1
+[1639102710977][CONSUMER 2] Received item 1
+[1639102710974][BROKER] received new item 1. Broadcasting....
+[1639102710978][BROKER] received new item 1. Broadcasting....
+[1639102710979][BROKER] received new item 1. Broadcasting....
+[1639102710979][BROKER] received new item 1. Broadcasting....
+[1639102710979][BROKER] received new item 1. Broadcasting....
+[1639102710979][BROKER] received new item 1. Broadcasting....
+[1639102710979][BROKER] received new item 1. Broadcasting....
+[1639102710979][PRODUCER 18] Sent item 1
+[1639102710970][PRODUCER 11] Sent item 1
+[1639102710979][PRODUCER 16] Sent item 1
+[1639102710979][PRODUCER 19] Sent item 1
+[1639102710978][CONSUMER 2] Received item 1
+[1639102710981][CONSUMER 2] Received item 1
+[1639102710981][CONSUMER 2] Received item 1
+[1639102710981][CONSUMER 2] Received item 1
+[1639102710981][CONSUMER 2] Received item 1
+[1639102710982][CONSUMER 2] Received item 1
+[1639102710979][PRODUCER 8] Sent item 1
+[1639102710978][CONSUMER 1] Received item 1
+[1639102710985][CONSUMER 1] Received item 1
+[1639102710986][CONSUMER 1] Received item 1
+[1639102710986][CONSUMER 1] Received item 1
+[1639102710985][BROKER] received new item 1. Broadcasting....
+[1639102710986][BROKER] received new item 1. Broadcasting....
+[1639102710987][BROKER] received new item 1. Broadcasting....
+[1639102710987][BROKER] received new item 1. Broadcasting....
+[1639102710987][CONSUMER 1] Received item 1
+[1639102710985][CONSUMER 2] Received item 1
+[1639102710988][CONSUMER 2] Received item 1
+[1639102710989][CONSUMER 2] Received item 1
+[1639102710989][BROKER] received new item 1. Broadcasting....
+[1639102710989][CONSUMER 2] Received item 1
+[1639102710989][CONSUMER 2] Received item 1
+[1639102710978][PRODUCER 5] Sent item 1
+[1639102710979][PRODUCER 9] Sent item 1
+[1639102710988][CONSUMER 1] Received item 1
+[1639102710990][CONSUMER 1] Received item 1
+[1639102710991][CONSUMER 1] Received item 1
+[1639102710991][CONSUMER 1] Received item 1
+[1639102710991][CONSUMER 1] Received item 1
+[1639102710991][CONSUMER 1] Received item 1
+[1639102710991][CONSUMER 1] Received item 1
+[1639102710991][CONSUMER 2] Received item 1
+[1639102711457][PRODUCER 4] Sent item 2
+[1639102711457][BROKER] received new item 2. Broadcasting....
+[1639102711457][CONSUMER 1] Received item 2
+[1639102711457][CONSUMER 2] Received item 2
+[1639102711482][BROKER] received new item 2. Broadcasting....
+[1639102711483][BROKER] received new item 2. Broadcasting....
+[1639102711483][BROKER] received new item 2. Broadcasting....
+[1639102711483][BROKER] received new item 2. Broadcasting....
+[1639102711483][BROKER] received new item 2. Broadcasting....
+[1639102711484][BROKER] received new item 2. Broadcasting....
+[1639102711484][BROKER] received new item 2. Broadcasting....
+[1639102711483][CONSUMER 1] Received item 2
+[1639102711485][CONSUMER 1] Received item 2
+[1639102711483][CONSUMER 2] Received item 2
+[1639102711485][CONSUMER 2] Received item 2
+[1639102711485][CONSUMER 2] Received item 2
+[1639102711486][CONSUMER 2] Received item 2
+[1639102711486][CONSUMER 2] Received item 2
+[1639102711487][CONSUMER 2] Received item 2
+[1639102711487][CONSUMER 2] Received item 2
+[1639102711483][PRODUCER 2] Sent item 2
+[1639102711482][PRODUCER 17] Sent item 2
+[1639102711484][PRODUCER 15] Sent item 2
+[1639102711482][PRODUCER 19] Sent item 2
+[1639102711484][PRODUCER 6] Sent item 2
+[1639102711482][PRODUCER 14] Sent item 2
+[1639102711485][CONSUMER 1] Received item 2
+[1639102711489][CONSUMER 1] Received item 2
+[1639102711489][CONSUMER 1] Received item 2
+[1639102711489][CONSUMER 1] Received item 2
+[1639102711490][CONSUMER 1] Received item 2
+[1639102711483][PRODUCER 11] Sent item 2
+[1639102711482][PRODUCER 1] Sent item 2
+[1639102711483][PRODUCER 16] Sent item 2
+[1639102711482][PRODUCER 10] Sent item 2
+[1639102711483][PRODUCER 18] Sent item 2
+[1639102711485][BROKER] received new item 2. Broadcasting....
+[1639102711491][CONSUMER 2] Received item 2
+[1639102711482][PRODUCER 7] Sent item 2
+[1639102711491][BROKER] received new item 2. Broadcasting....
+[1639102711492][BROKER] received new item 2. Broadcasting....
+[1639102711493][BROKER] received new item 2. Broadcasting....
+[1639102711493][BROKER] received new item 2. Broadcasting....
+[1639102711493][BROKER] received new item 2. Broadcasting....
+[1639102711494][BROKER] received new item 2. Broadcasting....
+[1639102711492][PRODUCER 3] Sent item 2
+[1639102711491][PRODUCER 20] Sent item 2
+[1639102711493][PRODUCER 13] Sent item 2
+[1639102711485][PRODUCER 12] Sent item 2
+[1639102711493][PRODUCER 8] Sent item 2
+[1639102711492][CONSUMER 2] Received item 2
+[1639102711495][CONSUMER 2] Received item 2
+[1639102711496][CONSUMER 2] Received item 2
+[1639102711496][CONSUMER 2] Received item 2
+[1639102711496][CONSUMER 2] Received item 2
+[1639102711491][CONSUMER 1] Received item 2
+[1639102711497][CONSUMER 1] Received item 2
+[1639102711497][CONSUMER 1] Received item 2
+[1639102711497][CONSUMER 1] Received item 2
+[1639102711497][CONSUMER 1] Received item 2
+[1639102711497][CONSUMER 1] Received item 2
+[1639102711498][CONSUMER 1] Received item 2
+[1639102711494][PRODUCER 9] Sent item 2
+[1639102711497][BROKER] received new item 2. Broadcasting....
+[1639102711498][CONSUMER 1] Received item 2
+[1639102711494][PRODUCER 5] Sent item 2
+[1639102711498][BROKER] received new item 2. Broadcasting....
+[1639102711500][CONSUMER 1] Received item 2
+[1639102711500][BROKER] received new item 2. Broadcasting....
+[1639102711500][CONSUMER 1] Received item 2
+[1639102711500][BROKER] received new item 2. Broadcasting....
+[1639102711501][CONSUMER 1] Received item 2
+[1639102711501][BROKER] received new item 2. Broadcasting....
+[1639102711501][CONSUMER 1] Received item 2
+[1639102711497][CONSUMER 2] Received item 2
+[1639102711502][CONSUMER 2] Received item 2
+[1639102711502][CONSUMER 2] Received item 2
+[1639102711502][CONSUMER 2] Received item 2
+[1639102711503][CONSUMER 2] Received item 2
+[1639102711503][CONSUMER 2] Received item 2
+[1639102711964][PRODUCER 4] Sent item 3
+[1639102711964][BROKER] received new item 3. Broadcasting....
+[1639102711965][CONSUMER 1] Received item 3
+[1639102711965][CONSUMER 2] Received item 3
+[1639102711993][BROKER] received new item 3. Broadcasting....
+[1639102711993][BROKER] received new item 3. Broadcasting....
+[1639102711994][BROKER] received new item 3. Broadcasting....
+[1639102711994][BROKER] received new item 3. Broadcasting....
+[1639102711995][BROKER] received new item 3. Broadcasting....
+[1639102711995][BROKER] received new item 3. Broadcasting....
+[1639102711995][BROKER] received new item 3. Broadcasting....
+[1639102711993][CONSUMER 2] Received item 3
+[1639102711997][CONSUMER 2] Received item 3
+[1639102711997][CONSUMER 2] Received item 3
+[1639102711997][CONSUMER 2] Received item 3
+[1639102711997][CONSUMER 2] Received item 3
+[1639102711998][CONSUMER 2] Received item 3
+[1639102711993][PRODUCER 2] Sent item 3
+[1639102711994][PRODUCER 6] Sent item 3
+[1639102711993][PRODUCER 16] Sent item 3
+[1639102711995][PRODUCER 11] Sent item 3
+[1639102711995][PRODUCER 7] Sent item 3
+[1639102711993][PRODUCER 17] Sent item 3
+[1639102711993][PRODUCER 10] Sent item 3
+[1639102711996][PRODUCER 1] Sent item 3
+[1639102711993][CONSUMER 1] Received item 3
+[1639102712001][CONSUMER 1] Received item 3
+[1639102712002][CONSUMER 1] Received item 3
+[1639102712002][CONSUMER 1] Received item 3
+[1639102712002][CONSUMER 1] Received item 3
+[1639102712003][CONSUMER 1] Received item 3
+[1639102712003][CONSUMER 1] Received item 3
+[1639102712001][PRODUCER 20] Sent item 3
+[1639102712001][CONSUMER 2] Received item 3
+[1639102711993][PRODUCER 15] Sent item 3
+[1639102711993][PRODUCER 14] Sent item 3
+[1639102711994][PRODUCER 19] Sent item 3
+[1639102711993][PRODUCER 18] Sent item 3
+[1639102712001][BROKER] received new item 3. Broadcasting....
+[1639102712006][CONSUMER 2] Received item 3
+[1639102712006][CONSUMER 1] Received item 3
+[1639102712006][BROKER] received new item 3. Broadcasting....
+[1639102712007][BROKER] received new item 3. Broadcasting....
+[1639102712008][BROKER] received new item 3. Broadcasting....
+[1639102712008][BROKER] received new item 3. Broadcasting....
+[1639102712008][BROKER] received new item 3. Broadcasting....
+[1639102712009][BROKER] received new item 3. Broadcasting....
+[1639102712009][BROKER] received new item 3. Broadcasting....
+[1639102712008][PRODUCER 12] Sent item 3
+[1639102712006][PRODUCER 3] Sent item 3
+[1639102712008][PRODUCER 13] Sent item 3
+[1639102712007][PRODUCER 8] Sent item 3
+[1639102712008][PRODUCER 9] Sent item 3
+[1639102712007][CONSUMER 2] Received item 3
+[1639102712011][CONSUMER 2] Received item 3
+[1639102712012][CONSUMER 2] Received item 3
+[1639102712012][CONSUMER 2] Received item 3
+[1639102712012][CONSUMER 2] Received item 3
+[1639102712013][CONSUMER 2] Received item 3
+[1639102712007][CONSUMER 1] Received item 3
+[1639102712013][CONSUMER 1] Received item 3
+[1639102712013][CONSUMER 1] Received item 3
+[1639102712014][CONSUMER 1] Received item 3
+[1639102712014][CONSUMER 1] Received item 3
+[1639102712014][CONSUMER 1] Received item 3
+[1639102712015][CONSUMER 1] Received item 3
+[1639102712013][CONSUMER 2] Received item 3
+[1639102712009][PRODUCER 5] Sent item 3
+[1639102712013][BROKER] received new item 3. Broadcasting....
+[1639102712018][CONSUMER 1] Received item 3
+[1639102712018][BROKER] received new item 3. Broadcasting....
+[1639102712018][BROKER] received new item 3. Broadcasting....
+[1639102712018][BROKER] received new item 3. Broadcasting....
+[1639102712018][CONSUMER 2] Received item 3
+[1639102712019][CONSUMER 2] Received item 3
+[1639102712019][CONSUMER 2] Received item 3
+[1639102712020][CONSUMER 2] Received item 3
+[1639102712018][CONSUMER 1] Received item 3
+[1639102712020][CONSUMER 1] Received item 3
+[1639102712020][CONSUMER 1] Received item 3
+[1639102712478][BROKER] received new item 4. Broadcasting....
+[1639102712478][CONSUMER 1] Received item 4
+[1639102712478][CONSUMER 2] Received item 4
+[1639102712478][PRODUCER 4] Sent item 4
+[1639102712500][BROKER] received new item 4. Broadcasting....
+[1639102712500][BROKER] received new item 4. Broadcasting....
+[1639102712501][BROKER] received new item 4. Broadcasting....
+[1639102712501][BROKER] received new item 4. Broadcasting....
+[1639102712501][BROKER] received new item 4. Broadcasting....
+[1639102712502][BROKER] received new item 4. Broadcasting....
+[1639102712502][BROKER] received new item 4. Broadcasting....
+[1639102712500][CONSUMER 1] Received item 4
+[1639102712503][CONSUMER 1] Received item 4
+[1639102712504][CONSUMER 1] Received item 4
+[1639102712504][CONSUMER 1] Received item 4
+[1639102712505][CONSUMER 1] Received item 4
+[1639102712505][CONSUMER 1] Received item 4
+[1639102712505][CONSUMER 1] Received item 4
+[1639102712500][PRODUCER 2] Sent item 4
+[1639102712500][PRODUCER 6] Sent item 4
+[1639102712500][CONSUMER 2] Received item 4
+[1639102712507][CONSUMER 2] Received item 4
+[1639102712508][CONSUMER 2] Received item 4
+[1639102712508][CONSUMER 2] Received item 4
+[1639102712508][CONSUMER 2] Received item 4
+[1639102712509][CONSUMER 2] Received item 4
+[1639102712509][CONSUMER 2] Received item 4
+[1639102712500][PRODUCER 7] Sent item 4
+[1639102712505][PRODUCER 19] Sent item 4
+[1639102712505][PRODUCER 14] Sent item 4
+[1639102712500][PRODUCER 16] Sent item 4
+[1639102712500][PRODUCER 11] Sent item 4
+[1639102712507][BROKER] received new item 4. Broadcasting....
+[1639102712513][CONSUMER 1] Received item 4
+[1639102712504][PRODUCER 20] Sent item 4
+[1639102712501][PRODUCER 10] Sent item 4
+[1639102712501][PRODUCER 17] Sent item 4
+[1639102712504][PRODUCER 15] Sent item 4
+[1639102712501][PRODUCER 1] Sent item 4
+[1639102712513][BROKER] received new item 4. Broadcasting....
+[1639102712518][CONSUMER 1] Received item 4
+[1639102712513][PRODUCER 12] Sent item 4
+[1639102712507][PRODUCER 18] Sent item 4
+[1639102712518][BROKER] received new item 4. Broadcasting....
+[1639102712520][CONSUMER 1] Received item 4
+[1639102712513][CONSUMER 2] Received item 4
+[1639102712522][CONSUMER 2] Received item 4
+[1639102712522][CONSUMER 2] Received item 4
+[1639102712518][PRODUCER 13] Sent item 4
+[1639102712520][BROKER] received new item 4. Broadcasting....
+[1639102712524][BROKER] received new item 4. Broadcasting....
+[1639102712525][BROKER] received new item 4. Broadcasting....
+[1639102712525][BROKER] received new item 4. Broadcasting....
+[1639102712525][BROKER] received new item 4. Broadcasting....
+[1639102712526][BROKER] received new item 4. Broadcasting....
+[1639102712526][BROKER] received new item 4. Broadcasting....
+[1639102712525][PRODUCER 8] Sent item 4
+[1639102712524][CONSUMER 1] Received item 4
+[1639102712527][CONSUMER 1] Received item 4
+[1639102712527][CONSUMER 1] Received item 4
+[1639102712528][CONSUMER 1] Received item 4
+[1639102712529][CONSUMER 1] Received item 4
+[1639102712529][CONSUMER 1] Received item 4
+[1639102712529][CONSUMER 1] Received item 4
+[1639102712524][PRODUCER 9] Sent item 4
+[1639102712520][PRODUCER 3] Sent item 4
+[1639102712525][PRODUCER 5] Sent item 4
+[1639102712524][CONSUMER 2] Received item 4
+[1639102712532][CONSUMER 2] Received item 4
+[1639102712532][CONSUMER 2] Received item 4
+[1639102712533][CONSUMER 2] Received item 4
+[1639102712534][CONSUMER 2] Received item 4
+[1639102712534][CONSUMER 2] Received item 4
+[1639102712534][CONSUMER 2] Received item 4
+[1639102712532][BROKER] received new item 4. Broadcasting....
+[1639102712535][BROKER] received new item 4. Broadcasting....
+[1639102712535][CONSUMER 2] Received item 4
+[1639102712536][CONSUMER 2] Received item 4
+[1639102712535][CONSUMER 1] Received item 4
+[1639102712536][CONSUMER 1] Received item 4
+[1639102712990][BROKER] received new item 5. Broadcasting....
+[1639102712990][CONSUMER 1] Received item 5
+[1639102712990][CONSUMER 2] Received item 5
+[1639102712990][PRODUCER 4] Sent item 5
+[1639102713009][PRODUCER 6] Sent item 5
+[1639102713009][BROKER] received new item 5. Broadcasting....
+[1639102713009][BROKER] received new item 5. Broadcasting....
+[1639102713009][CONSUMER 1] Received item 5
+[1639102713010][CONSUMER 1] Received item 5
+[1639102713009][PRODUCER 2] Sent item 5
+[1639102713011][PRODUCER 19] Sent item 5
+[1639102713010][PRODUCER 7] Sent item 5
+[1639102713009][CONSUMER 2] Received item 5
+[1639102713012][CONSUMER 2] Received item 5
+[1639102713013][PRODUCER 11] Sent item 5
+[1639102713010][BROKER] received new item 5. Broadcasting....
+[1639102713014][CONSUMER 1] Received item 5
+[1639102713012][PRODUCER 16] Sent item 5
+[1639102713015][PRODUCER 10] Sent item 5
+[1639102713012][PRODUCER 14] Sent item 5
+[1639102713014][BROKER] received new item 5. Broadcasting....
+[1639102713017][BROKER] received new item 5. Broadcasting....
+[1639102713017][BROKER] received new item 5. Broadcasting....
+[1639102713018][BROKER] received new item 5. Broadcasting....
+[1639102713018][BROKER] received new item 5. Broadcasting....
+[1639102713018][BROKER] received new item 5. Broadcasting....
+[1639102713017][PRODUCER 1] Sent item 5
+[1639102713015][PRODUCER 20] Sent item 5
+[1639102713017][CONSUMER 1] Received item 5
+[1639102713020][CONSUMER 1] Received item 5
+[1639102713021][CONSUMER 1] Received item 5
+[1639102713021][CONSUMER 1] Received item 5
+[1639102713022][CONSUMER 1] Received item 5
+[1639102713022][CONSUMER 1] Received item 5
+[1639102713018][PRODUCER 15] Sent item 5
+[1639102713014][CONSUMER 2] Received item 5
+[1639102713023][CONSUMER 2] Received item 5
+[1639102713024][CONSUMER 2] Received item 5
+[1639102713024][CONSUMER 2] Received item 5
+[1639102713024][CONSUMER 2] Received item 5
+[1639102713025][CONSUMER 2] Received item 5
+[1639102713025][CONSUMER 2] Received item 5
+[1639102713019][PRODUCER 12] Sent item 5
+[1639102713019][PRODUCER 18] Sent item 5
+[1639102713017][PRODUCER 17] Sent item 5
+[1639102713023][BROKER] received new item 5. Broadcasting....
+[1639102713028][CONSUMER 1] Received item 5
+[1639102713028][BROKER] received new item 5. Broadcasting....
+[1639102713028][BROKER] received new item 5. Broadcasting....
+[1639102713029][BROKER] received new item 5. Broadcasting....
+[1639102713029][BROKER] received new item 5. Broadcasting....
+[1639102713029][BROKER] received new item 5. Broadcasting....
+[1639102713030][BROKER] received new item 5. Broadcasting....
+[1639102713030][PRODUCER 9] Sent item 5
+[1639102713031][PRODUCER 3] Sent item 5
+[1639102713028][CONSUMER 1] Received item 5
+[1639102713031][CONSUMER 1] Received item 5
+[1639102713032][CONSUMER 1] Received item 5
+[1639102713032][CONSUMER 1] Received item 5
+[1639102713033][CONSUMER 1] Received item 5
+[1639102713034][CONSUMER 1] Received item 5
+[1639102713024][PRODUCER 13] Sent item 5
+[1639102713028][PRODUCER 8] Sent item 5
+[1639102713028][CONSUMER 2] Received item 5
+[1639102713038][CONSUMER 2] Received item 5
+[1639102713038][CONSUMER 2] Received item 5
+[1639102713039][CONSUMER 2] Received item 5
+[1639102713039][CONSUMER 2] Received item 5
+[1639102713040][CONSUMER 2] Received item 5
+[1639102713040][CONSUMER 2] Received item 5
+[1639102713038][BROKER] received new item 5. Broadcasting....
+[1639102713041][BROKER] received new item 5. Broadcasting....
+[1639102713042][BROKER] received new item 5. Broadcasting....
+[1639102713041][CONSUMER 1] Received item 5
+[1639102713042][CONSUMER 1] Received item 5
+[1639102713043][CONSUMER 1] Received item 5
+[1639102713032][PRODUCER 5] Sent item 5
+[1639102713041][CONSUMER 2] Received item 5
+[1639102713044][CONSUMER 2] Received item 5
+[1639102713044][CONSUMER 2] Received item 5
+[1639102713504][BROKER] received new item 6. Broadcasting....
+[1639102713504][CONSUMER 1] Received item 6
+[1639102713504][CONSUMER 2] Received item 6
+[1639102713504][PRODUCER 4] Sent item 6
+[1639102713519][BROKER] received new item 6. Broadcasting....
+[1639102713520][BROKER] received new item 6. Broadcasting....
+[1639102713520][BROKER] received new item 6. Broadcasting....
+[1639102713521][BROKER] received new item 6. Broadcasting....
+[1639102713522][BROKER] received new item 6. Broadcasting....
+[1639102713522][BROKER] received new item 6. Broadcasting....
+[1639102713522][BROKER] received new item 6. Broadcasting....
+[1639102713520][CONSUMER 1] Received item 6
+[1639102713523][CONSUMER 1] Received item 6
+[1639102713524][CONSUMER 1] Received item 6
+[1639102713524][CONSUMER 1] Received item 6
+[1639102713524][CONSUMER 1] Received item 6
+[1639102713525][CONSUMER 1] Received item 6
+[1639102713525][CONSUMER 1] Received item 6
+[1639102713521][PRODUCER 20] Sent item 6
+[1639102713519][PRODUCER 6] Sent item 6
+[1639102713522][PRODUCER 1] Sent item 6
+[1639102713519][PRODUCER 14] Sent item 6
+[1639102713519][PRODUCER 16] Sent item 6
+[1639102713523][PRODUCER 15] Sent item 6
+[1639102713520][CONSUMER 2] Received item 6
+[1639102713528][CONSUMER 2] Received item 6
+[1639102713529][CONSUMER 2] Received item 6
+[1639102713529][CONSUMER 2] Received item 6
+[1639102713530][CONSUMER 2] Received item 6
+[1639102713530][CONSUMER 2] Received item 6
+[1639102713531][CONSUMER 2] Received item 6
+[1639102713519][PRODUCER 7] Sent item 6
+[1639102713528][BROKER] received new item 6. Broadcasting....
+[1639102713531][BROKER] received new item 6. Broadcasting....
+[1639102713532][BROKER] received new item 6. Broadcasting....
+[1639102713533][BROKER] received new item 6. Broadcasting....
+[1639102713533][BROKER] received new item 6. Broadcasting....
+[1639102713533][BROKER] received new item 6. Broadcasting....
+[1639102713534][BROKER] received new item 6. Broadcasting....
+[1639102713531][CONSUMER 2] Received item 6
+[1639102713535][CONSUMER 2] Received item 6
+[1639102713536][CONSUMER 2] Received item 6
+[1639102713536][CONSUMER 2] Received item 6
+[1639102713537][CONSUMER 2] Received item 6
+[1639102713537][CONSUMER 2] Received item 6
+[1639102713519][PRODUCER 19] Sent item 6
+[1639102713533][PRODUCER 3] Sent item 6
+[1639102713520][PRODUCER 2] Sent item 6
+[1639102713519][PRODUCER 11] Sent item 6
+[1639102713527][PRODUCER 12] Sent item 6
+[1639102713534][PRODUCER 13] Sent item 6
+[1639102713535][PRODUCER 8] Sent item 6
+[1639102713528][PRODUCER 18] Sent item 6
+[1639102713531][CONSUMER 1] Received item 6
+[1639102713542][CONSUMER 1] Received item 6
+[1639102713542][CONSUMER 1] Received item 6
+[1639102713543][CONSUMER 1] Received item 6
+[1639102713543][CONSUMER 1] Received item 6
+[1639102713543][CONSUMER 1] Received item 6
+[1639102713544][CONSUMER 1] Received item 6
+[1639102713544][PRODUCER 5] Sent item 6
+[1639102713532][PRODUCER 9] Sent item 6
+[1639102713531][PRODUCER 17] Sent item 6
+[1639102713542][BROKER] received new item 6. Broadcasting....
+[1639102713546][BROKER] received new item 6. Broadcasting....
+[1639102713547][BROKER] received new item 6. Broadcasting....
+[1639102713547][BROKER] received new item 6. Broadcasting....
+[1639102713547][BROKER] received new item 6. Broadcasting....
+[1639102713520][PRODUCER 10] Sent item 6
+[1639102713546][CONSUMER 1] Received item 6
+[1639102713554][CONSUMER 1] Received item 6
+[1639102713556][CONSUMER 1] Received item 6
+[1639102713589][CONSUMER 1] Received item 6
+[1639102713596][CONSUMER 1] Received item 6
+[1639102713542][CONSUMER 2] Received item 6
+[1639102713627][CONSUMER 2] Received item 6
+[1639102713628][CONSUMER 2] Received item 6
+[1639102713628][CONSUMER 2] Received item 6
+[1639102713629][CONSUMER 2] Received item 6
+[1639102713629][CONSUMER 2] Received item 6
+[1639102714018][BROKER] received new item 7. Broadcasting....
+[1639102714018][CONSUMER 1] Received item 7
+[1639102714018][CONSUMER 2] Received item 7
+[1639102714018][PRODUCER 4] Sent item 7
+[1639102714033][BROKER] received new item 7. Broadcasting....
+[1639102714034][BROKER] received new item 7. Broadcasting....
+[1639102714034][BROKER] received new item 7. Broadcasting....
+[1639102714034][BROKER] received new item 7. Broadcasting....
+[1639102714035][BROKER] received new item 7. Broadcasting....
+[1639102714035][BROKER] received new item 7. Broadcasting....
+[1639102714036][BROKER] received new item 7. Broadcasting....
+[1639102714034][CONSUMER 1] Received item 7
+[1639102714036][CONSUMER 1] Received item 7
+[1639102714036][CONSUMER 1] Received item 7
+[1639102714034][PRODUCER 6] Sent item 7
+[1639102714033][PRODUCER 1] Sent item 7
+[1639102714033][PRODUCER 14] Sent item 7
+[1639102714033][PRODUCER 16] Sent item 7
+[1639102714033][PRODUCER 7] Sent item 7
+[1639102714033][PRODUCER 20] Sent item 7
+[1639102714034][CONSUMER 2] Received item 7
+[1639102714041][CONSUMER 2] Received item 7
+[1639102714041][CONSUMER 2] Received item 7
+[1639102714042][CONSUMER 2] Received item 7
+[1639102714042][CONSUMER 2] Received item 7
+[1639102714042][CONSUMER 2] Received item 7
+[1639102714042][CONSUMER 2] Received item 7
+[1639102714033][PRODUCER 15] Sent item 7
+[1639102714041][PRODUCER 12] Sent item 7
+[1639102714041][BROKER] received new item 7. Broadcasting....
+[1639102714044][CONSUMER 2] Received item 7
+[1639102714042][PRODUCER 8] Sent item 7
+[1639102714039][PRODUCER 3] Sent item 7
+[1639102714039][PRODUCER 19] Sent item 7
+[1639102714040][PRODUCER 11] Sent item 7
+[1639102714040][PRODUCER 2] Sent item 7
+[1639102714044][BROKER] received new item 7. Broadcasting....
+[1639102714047][BROKER] received new item 7. Broadcasting....
+[1639102714037][CONSUMER 1] Received item 7
+[1639102714047][CONSUMER 1] Received item 7
+[1639102714048][CONSUMER 1] Received item 7
+[1639102714049][CONSUMER 1] Received item 7
+[1639102714050][CONSUMER 1] Received item 7
+[1639102714050][CONSUMER 1] Received item 7
+[1639102714051][CONSUMER 1] Received item 7
+[1639102714044][PRODUCER 13] Sent item 7
+[1639102714047][PRODUCER 18] Sent item 7
+[1639102714047][CONSUMER 2] Received item 7
+[1639102714052][CONSUMER 2] Received item 7
+[1639102714048][PRODUCER 5] Sent item 7
+[1639102714048][BROKER] received new item 7. Broadcasting....
+[1639102714053][CONSUMER 2] Received item 7
+[1639102714053][CONSUMER 1] Received item 7
+[1639102714053][BROKER] received new item 7. Broadcasting....
+[1639102714054][BROKER] received new item 7. Broadcasting....
+[1639102714055][BROKER] received new item 7. Broadcasting....
+[1639102714055][BROKER] received new item 7. Broadcasting....
+[1639102714056][BROKER] received new item 7. Broadcasting....
+[1639102714056][BROKER] received new item 7. Broadcasting....
+[1639102714057][BROKER] received new item 7. Broadcasting....
+[1639102714055][PRODUCER 10] Sent item 7
+[1639102714053][PRODUCER 9] Sent item 7
+[1639102714054][CONSUMER 2] Received item 7
+[1639102714058][CONSUMER 2] Received item 7
+[1639102714059][CONSUMER 2] Received item 7
+[1639102714059][CONSUMER 2] Received item 7
+[1639102714059][CONSUMER 2] Received item 7
+[1639102714060][CONSUMER 2] Received item 7
+[1639102714054][CONSUMER 1] Received item 7
+[1639102714060][CONSUMER 1] Received item 7
+[1639102714061][CONSUMER 1] Received item 7
+[1639102714061][CONSUMER 1] Received item 7
+[1639102714062][CONSUMER 1] Received item 7
+[1639102714062][CONSUMER 1] Received item 7
+[1639102714062][CONSUMER 1] Received item 7
+[1639102714060][CONSUMER 2] Received item 7
+[1639102714054][PRODUCER 17] Sent item 7
+[1639102714060][BROKER] received new item 7. Broadcasting....
+[1639102714065][CONSUMER 2] Received item 7
+[1639102714065][CONSUMER 1] Received item 7
+[1639102714529][BROKER] received new item 8. Broadcasting....
+[1639102714530][CONSUMER 2] Received item 8
+[1639102714530][CONSUMER 1] Received item 8
+[1639102714529][PRODUCER 4] Sent item 8
+[1639102714540][BROKER] received new item 8. Broadcasting....
+[1639102714541][BROKER] received new item 8. Broadcasting....
+[1639102714541][BROKER] received new item 8. Broadcasting....
+[1639102714541][BROKER] received new item 8. Broadcasting....
+[1639102714542][BROKER] received new item 8. Broadcasting....
+[1639102714542][BROKER] received new item 8. Broadcasting....
+[1639102714540][PRODUCER 7] Sent item 8
+[1639102714541][CONSUMER 1] Received item 8
+[1639102714543][CONSUMER 1] Received item 8
+[1639102714544][CONSUMER 1] Received item 8
+[1639102714544][CONSUMER 1] Received item 8
+[1639102714545][CONSUMER 1] Received item 8
+[1639102714545][CONSUMER 1] Received item 8
+[1639102714546][PRODUCER 19] Sent item 8
+[1639102714543][PRODUCER 15] Sent item 8
+[1639102714543][BROKER] received new item 8. Broadcasting....
+[1639102714541][CONSUMER 2] Received item 8
+[1639102714548][CONSUMER 2] Received item 8
+[1639102714548][CONSUMER 2] Received item 8
+[1639102714549][CONSUMER 2] Received item 8
+[1639102714549][CONSUMER 2] Received item 8
+[1639102714549][CONSUMER 2] Received item 8
+[1639102714550][CONSUMER 2] Received item 8
+[1639102714540][PRODUCER 20] Sent item 8
+[1639102714540][PRODUCER 16] Sent item 8
+[1639102714547][PRODUCER 2] Sent item 8
+[1639102714547][CONSUMER 1] Received item 8
+[1639102714544][PRODUCER 12] Sent item 8
+[1639102714548][BROKER] received new item 8. Broadcasting....
+[1639102714552][BROKER] received new item 8. Broadcasting....
+[1639102714553][BROKER] received new item 8. Broadcasting....
+[1639102714553][BROKER] received new item 8. Broadcasting....
+[1639102714553][BROKER] received new item 8. Broadcasting....
+[1639102714554][BROKER] received new item 8. Broadcasting....
+[1639102714555][BROKER] received new item 8. Broadcasting....
+[1639102714552][CONSUMER 1] Received item 8
+[1639102714555][CONSUMER 1] Received item 8
+[1639102714555][CONSUMER 1] Received item 8
+[1639102714556][CONSUMER 1] Received item 8
+[1639102714556][CONSUMER 1] Received item 8
+[1639102714556][CONSUMER 1] Received item 8
+[1639102714557][CONSUMER 1] Received item 8
+[1639102714557][PRODUCER 10] Sent item 8
+[1639102714545][PRODUCER 8] Sent item 8
+[1639102714540][PRODUCER 1] Sent item 8
+[1639102714545][PRODUCER 3] Sent item 8
+[1639102714548][PRODUCER 11] Sent item 8
+[1639102714552][CONSUMER 2] Received item 8
+[1639102714560][CONSUMER 2] Received item 8
+[1639102714561][CONSUMER 2] Received item 8
+[1639102714562][CONSUMER 2] Received item 8
+[1639102714562][CONSUMER 2] Received item 8
+[1639102714563][CONSUMER 2] Received item 8
+[1639102714563][CONSUMER 2] Received item 8
+[1639102714552][PRODUCER 13] Sent item 8
+[1639102714561][BROKER] received new item 8. Broadcasting....
+[1639102714564][BROKER] received new item 8. Broadcasting....
+[1639102714564][BROKER] received new item 8. Broadcasting....
+[1639102714564][BROKER] received new item 8. Broadcasting....
+[1639102714565][BROKER] received new item 8. Broadcasting....
+[1639102714558][PRODUCER 9] Sent item 8
+[1639102714564][CONSUMER 1] Received item 8
+[1639102714567][CONSUMER 1] Received item 8
+[1639102714568][CONSUMER 1] Received item 8
+[1639102714569][CONSUMER 1] Received item 8
+[1639102714569][CONSUMER 1] Received item 8
+[1639102714540][PRODUCER 6] Sent item 8
+[1639102714553][PRODUCER 5] Sent item 8
+[1639102714564][CONSUMER 2] Received item 8
+[1639102714570][CONSUMER 2] Received item 8
+[1639102714570][CONSUMER 2] Received item 8
+[1639102714571][CONSUMER 2] Received item 8
+[1639102714571][CONSUMER 2] Received item 8
+[1639102714553][PRODUCER 18] Sent item 8
+[1639102714565][PRODUCER 17] Sent item 8
+[1639102714540][PRODUCER 14] Sent item 8
+[1639102715043][BROKER] received new item 9. Broadcasting....
+[1639102715044][BROKER] received new item 9. Broadcasting....
+[1639102715043][PRODUCER 4] Sent item 9
+[1639102715044][CONSUMER 1] Received item 9
+[1639102715045][CONSUMER 1] Received item 9
+[1639102715043][PRODUCER 7] Sent item 9
+[1639102715044][CONSUMER 2] Received item 9
+[1639102715046][CONSUMER 2] Received item 9
+[1639102715057][PRODUCER 12] Sent item 9
+[1639102715057][BROKER] received new item 9. Broadcasting....
+[1639102715057][BROKER] received new item 9. Broadcasting....
+[1639102715058][BROKER] received new item 9. Broadcasting....
+[1639102715058][BROKER] received new item 9. Broadcasting....
+[1639102715058][BROKER] received new item 9. Broadcasting....
+[1639102715059][BROKER] received new item 9. Broadcasting....
+[1639102715059][BROKER] received new item 9. Broadcasting....
+[1639102715057][CONSUMER 2] Received item 9
+[1639102715060][CONSUMER 2] Received item 9
+[1639102715061][CONSUMER 2] Received item 9
+[1639102715062][CONSUMER 2] Received item 9
+[1639102715062][CONSUMER 2] Received item 9
+[1639102715062][CONSUMER 2] Received item 9
+[1639102715058][PRODUCER 10] Sent item 9
+[1639102715057][PRODUCER 16] Sent item 9
+[1639102715057][CONSUMER 1] Received item 9
+[1639102715063][CONSUMER 1] Received item 9
+[1639102715063][CONSUMER 1] Received item 9
+[1639102715063][CONSUMER 1] Received item 9
+[1639102715064][CONSUMER 1] Received item 9
+[1639102715064][CONSUMER 1] Received item 9
+[1639102715065][CONSUMER 1] Received item 9
+[1639102715057][PRODUCER 20] Sent item 9
+[1639102715058][PRODUCER 8] Sent item 9
+[1639102715059][PRODUCER 3] Sent item 9
+[1639102715063][CONSUMER 2] Received item 9
+[1639102715067][PRODUCER 9] Sent item 9
+[1639102715059][PRODUCER 1] Sent item 9
+[1639102715057][PRODUCER 15] Sent item 9
+[1639102715064][PRODUCER 13] Sent item 9
+[1639102715061][PRODUCER 11] Sent item 9
+[1639102715057][PRODUCER 19] Sent item 9
+[1639102715057][PRODUCER 2] Sent item 9
+[1639102715063][BROKER] received new item 9. Broadcasting....
+[1639102715069][BROKER] received new item 9. Broadcasting....
+[1639102715070][BROKER] received new item 9. Broadcasting....
+[1639102715070][BROKER] received new item 9. Broadcasting....
+[1639102715070][BROKER] received new item 9. Broadcasting....
+[1639102715071][BROKER] received new item 9. Broadcasting....
+[1639102715071][BROKER] received new item 9. Broadcasting....
+[1639102715069][CONSUMER 2] Received item 9
+[1639102715072][CONSUMER 2] Received item 9
+[1639102715072][CONSUMER 2] Received item 9
+[1639102715072][CONSUMER 2] Received item 9
+[1639102715073][CONSUMER 2] Received item 9
+[1639102715073][CONSUMER 2] Received item 9
+[1639102715072][PRODUCER 18] Sent item 9
+[1639102715069][CONSUMER 1] Received item 9
+[1639102715075][CONSUMER 1] Received item 9
+[1639102715075][CONSUMER 1] Received item 9
+[1639102715075][CONSUMER 1] Received item 9
+[1639102715075][CONSUMER 1] Received item 9
+[1639102715075][CONSUMER 1] Received item 9
+[1639102715076][CONSUMER 1] Received item 9
+[1639102715075][CONSUMER 2] Received item 9
+[1639102715073][PRODUCER 14] Sent item 9
+[1639102715070][PRODUCER 5] Sent item 9
+[1639102715070][PRODUCER 6] Sent item 9
+[1639102715072][PRODUCER 17] Sent item 9
+[1639102715075][BROKER] received new item 9. Broadcasting....
+[1639102715077][CONSUMER 1] Received item 9
+[1639102715077][CONSUMER 2] Received item 9
+[1639102715077][BROKER] received new item 9. Broadcasting....
+[1639102715078][BROKER] received new item 9. Broadcasting....
+[1639102715078][BROKER] received new item 9. Broadcasting....
+[1639102715078][CONSUMER 1] Received item 9
+[1639102715079][CONSUMER 1] Received item 9
+[1639102715079][CONSUMER 1] Received item 9
+[1639102715078][CONSUMER 2] Received item 9
+[1639102715080][CONSUMER 2] Received item 9
+[1639102715080][CONSUMER 2] Received item 9
+[1639102715556][PRODUCER 4] Finished producing....
+[1639102715556][PRODUCER 7] Finished producing....
+[1639102715561][PRODUCER 12] Finished producing....
+[1639102715572][PRODUCER 2] Finished producing....
+[1639102715572][PRODUCER 9] Finished producing....
+[1639102715572][PRODUCER 1] Finished producing....
+[1639102715572][PRODUCER 15] Finished producing....
+[1639102715572][PRODUCER 13] Finished producing....
+[1639102715572][PRODUCER 11] Finished producing....
+[1639102715572][PRODUCER 19] Finished producing....
+[1639102715572][PRODUCER 16] Finished producing....
+[1639102715572][PRODUCER 10] Finished producing....
+[1639102715572][PRODUCER 3] Finished producing....
+[1639102715572][PRODUCER 20] Finished producing....
+[1639102715572][PRODUCER 8] Finished producing....
+[1639102715574][PRODUCER 18] Finished producing....
+[1639102715576][PRODUCER 14] Finished producing....
+[1639102715577][PRODUCER 5] Finished producing....
+[1639102715577][PRODUCER 17] Finished producing....
+[1639102715577][PRODUCER 6] Finished producing....
+[1639102715578][BROKER] Received done signal...
+[1639102715578][CONSUMER 2] Received broker done. Closing channel
+[1639102715578][CONSUMER 2] Consumer finishing...
+[1639102715578][CONSUMER 1] Received broker done. Closing channel
+[1639102715579][CONSUMER 1] Consumer finishing..

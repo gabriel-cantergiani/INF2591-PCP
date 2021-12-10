@@ -1,0 +1,94 @@
+INF2591
+Professora: Noemi Rodriguez
+Gabriel Cantergiani
+
+Broadcast entre threads usando um buffer compartilhado e canal de comunicação entre threads em Golang
+
+4) No teste a seguir adicionamos mais produtores para que fosse possível visualizar como ocorre o processo de broadcast, também visualizando melhor o buffer circular. 
+
+Buffer de tamanho 5
+2 Produtores
+3 Consumidores
+6 Itens a serem produzidos
+
+------------------------------------------
+
+Parameters: N=5, P=2, C=3, I=6
+[1639102566209][MAIN] Starting broker...
+[1639102566209][MAIN] Creating consumers...
+[1639102566210][MAIN] Creating producers...
+[1639102566210][CONSUMER 1] Consumer starting...        
+[1639102566210][CONSUMER 3] Consumer starting...        
+[1639102566210][CONSUMER 2] Consumer starting...        
+[1639102566210][MAIN] waiting for producers to finish...
+[1639102566210][PRODUCER 2]Producer starting...
+[1639102566210][PRODUCER 1]Producer starting...
+[1639102567212][BROKER] received new item 0. Broadcasting....
+[1639102567213][CONSUMER 3] Received item 0
+[1639102567212][PRODUCER 2] Sent item 0
+[1639102567213][CONSUMER 1] Received item 0
+[1639102567212][PRODUCER 1] Sent item 0
+[1639102567213][CONSUMER 2] Received item 0
+[1639102567213][BROKER] received new item 0. Broadcasting....
+[1639102567214][CONSUMER 3] Received item 0
+[1639102567214][CONSUMER 2] Received item 0
+[1639102567214][CONSUMER 1] Received item 0
+[1639102567726][PRODUCER 2] Sent item 1
+[1639102567726][BROKER] received new item 1. Broadcasting....
+[1639102567726][BROKER] received new item 1. Broadcasting....
+[1639102567726][CONSUMER 2] Received item 1
+[1639102567726][CONSUMER 2] Received item 1
+[1639102567726][PRODUCER 1] Sent item 1
+[1639102567726][CONSUMER 3] Received item 1
+[1639102567727][CONSUMER 3] Received item 1
+[1639102567726][CONSUMER 1] Received item 1
+[1639102567728][CONSUMER 1] Received item 1
+[1639102568228][PRODUCER 1] Sent item 2
+[1639102568228][BROKER] received new item 2. Broadcasting....
+[1639102568228][CONSUMER 2] Received item 2
+[1639102568228][CONSUMER 1] Received item 2
+[1639102568228][CONSUMER 3] Received item 2
+[1639102568228][BROKER] received new item 2. Broadcasting....
+[1639102568231][CONSUMER 2] Received item 2
+[1639102568231][CONSUMER 3] Received item 2
+[1639102568228][PRODUCER 2] Sent item 2
+[1639102568231][CONSUMER 1] Received item 2
+[1639102568735][BROKER] received new item 3. Broadcasting....
+[1639102568735][BROKER] received new item 3. Broadcasting....
+[1639102568735][PRODUCER 1] Sent item 3
+[1639102568735][CONSUMER 2] Received item 3
+[1639102568736][CONSUMER 2] Received item 3
+[1639102568735][PRODUCER 2] Sent item 3
+[1639102568735][CONSUMER 3] Received item 3
+[1639102568737][CONSUMER 3] Received item 3
+[1639102568735][CONSUMER 1] Received item 3
+[1639102568737][CONSUMER 1] Received item 3
+[1639102569241][BROKER] received new item 4. Broadcasting....
+[1639102569241][BROKER] received new item 4. Broadcasting....
+[1639102569241][PRODUCER 2] Sent item 4
+[1639102569241][CONSUMER 1] Received item 4
+[1639102569242][CONSUMER 1] Received item 4
+[1639102569241][PRODUCER 1] Sent item 4
+[1639102569241][CONSUMER 2] Received item 4
+[1639102569243][CONSUMER 2] Received item 4
+[1639102569241][CONSUMER 3] Received item 4
+[1639102569243][CONSUMER 3] Received item 4
+[1639102569755][PRODUCER 2] Sent item 5
+[1639102569755][BROKER] received new item 5. Broadcasting....
+[1639102569755][BROKER] received new item 5. Broadcasting....
+[1639102569755][CONSUMER 1] Received item 5
+[1639102569756][CONSUMER 1] Received item 5
+[1639102569755][CONSUMER 2] Received item 5
+[1639102569756][CONSUMER 2] Received item 5
+[1639102569755][CONSUMER 3] Received item 5
+[1639102569757][CONSUMER 3] Received item 5
+[1639102569755][PRODUCER 1] Sent item 5
+[1639102570259][PRODUCER 1] Finished producing....
+[1639102570259][PRODUCER 2] Finished producing....
+[1639102570260][BROKER] Received done signal...
+[1639102570260][CONSUMER 2] Received broker done. Closing channel
+[1639102570260][CONSUMER 2] Consumer finishing...
+[1639102570260][CONSUMER 1] Received broker done. Closing channel
+[1639102570261][CONSUMER 1] Consumer finishing...
+[1639102570260][CONSUMER 3] Received broker done. Closing channel
+[1639102570261][CONSUMER 3] Consumer finishing...

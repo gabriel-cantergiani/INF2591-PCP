@@ -1,6 +1,9 @@
 package broker
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type Broker struct {
 	ConsumersBuffers []chan int
@@ -24,11 +27,10 @@ func (b *Broker) StartListening() {
 	// Start listening for new messages in producer channels
 LOOP:
 	for {
-		// fmt.Printf("[BROKER] starting loop...\n")
 		select {
 		case newItem := <-b.ProducersBuffer:
 			{
-				fmt.Printf("[BROKER] received new item %d. Broadcasting....\n", newItem)
+				fmt.Printf("[%d][BROKER] received new item %d. Broadcasting....\n", time.Now().UnixMilli(), newItem)
 				b.sendItemToConsumers(newItem)
 				continue LOOP
 			}
@@ -38,7 +40,7 @@ LOOP:
 		select {
 		case <-b.ProducersDone:
 			{
-				fmt.Printf("[BROKER] Received done signal...\n")
+				fmt.Printf("[%d][BROKER] Received done signal...\n", time.Now().UnixMilli())
 				b.finishBroker()
 				return
 			}

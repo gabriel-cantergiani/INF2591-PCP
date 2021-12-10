@@ -65,26 +65,25 @@ func main() {
 	broker := brk.NewBroker(P, C, producersBuffer, consumersBuffers, producersDone, brokerDone)
 
 	// Start broker
-	fmt.Println("[MAIN] Starting broker...\n")
+	fmt.Printf("[%d][MAIN] Starting broker...\n", time.Now().UnixMilli())
 	go broker.StartListening()
 
 	// Start consumers
-	fmt.Println("[MAIN] Creating consumers...\n")
+	fmt.Printf("[%d][MAIN] Creating consumers...\n", time.Now().UnixMilli())
 	for i := 0; i < C; i++ {
 		consumersWg.Add(1)
 		go consume(i+1, consumersBuffers[i], brokerDone, &consumersWg)
 	}
 
 	// Start producers
-	fmt.Println("[MAIN] Creating producers...\n")
+	fmt.Printf("[%d][MAIN] Creating producers...\n", time.Now().UnixMilli())
 	for i := 0; i < P; i++ {
 		producersWg.Add(1)
 		go produce(i+1, items, producersBuffer, &producersWg)
 	}
 
-	fmt.Println("[MAIN] waiting for producers to finish...\n")
+	fmt.Printf("[%d][MAIN] waiting for producers to finish...\n", time.Now().UnixMilli())
 	producersWg.Wait()
-	// time.Sleep(time.Second * 2)
 	producersDone <- true
 	consumersWg.Wait()
 
@@ -92,14 +91,14 @@ func main() {
 
 func consume(consumerID int, buffer chan int, done chan bool, wg *sync.WaitGroup) {
 
-	fmt.Printf("[CONSUMER %d] Consumer starting...\n", consumerID)
+	fmt.Printf("[%d][CONSUMER %d] Consumer starting...\n", time.Now().UnixMilli(), consumerID)
 
 LOOP:
 	for {
 		select {
 		case item := <-buffer:
 			{
-				fmt.Printf("[CONSUMER %d] >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Received item %d\n", consumerID, item)
+				fmt.Printf("[%d][CONSUMER %d] Received item %d\n", time.Now().UnixMilli(), consumerID, item)
 				continue LOOP
 			}
 		default:
@@ -108,7 +107,7 @@ LOOP:
 		select {
 		case <-done:
 			{
-				fmt.Printf("[CONSUMER %d] Received broker done. Closing channel\n", consumerID)
+				fmt.Printf("[%d][CONSUMER %d] Received broker done. Closing channel\n", time.Now().UnixMilli(), consumerID)
 				close(buffer)
 				break LOOP
 			}
@@ -116,22 +115,21 @@ LOOP:
 		}
 	}
 
-	fmt.Printf("[CONSUMER %d] Consumer finishing...\n", consumerID)
+	fmt.Printf("[%d][CONSUMER %d] Consumer finishing...\n", time.Now().UnixMilli(), consumerID)
 	wg.Done()
 }
 
 func produce(producerID int, items []int, buffer chan int, wg *sync.WaitGroup) {
 
-	fmt.Printf("[PRODUCER %d]Producer starting...\n", producerID)
+	fmt.Printf("[%d][PRODUCER %d]Producer starting...\n", time.Now().UnixMilli(), producerID)
 
-	time.Sleep(time.Duration(producerID))
+	time.Sleep(time.Second)
 	for item := range items {
-		time.Sleep(time.Second * 2)
-		value := item + (10 * (producerID - 1))
-		fmt.Printf("[PRODUCER %d] Sending item %d\n", producerID, value)
-		buffer <- value
+		buffer <- item
+		fmt.Printf("[%d][PRODUCER %d] Sent item %d\n", time.Now().UnixMilli(), producerID, item)
+		time.Sleep(time.Millisecond * 500)
 	}
 
-	fmt.Printf("[PRODUCER %d] Finished producing....\n", producerID)
+	fmt.Printf("[%d][PRODUCER %d] Finished producing....\n", time.Now().UnixMilli(), producerID)
 	wg.Done()
 }
